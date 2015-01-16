@@ -2,7 +2,7 @@
 
 use warnings;
 
-my $mystring = "this is some text form the journal of wallstreet journal one on thing";
+my $2:mystring = "this is some text form the journal of wallstreet journal one on thing";
 
 my $lister = chomp($mystring);
 
