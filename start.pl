@@ -2,7 +2,7 @@
 
 use warnings;
 
-my $mystring = "123123this is some text form the journal of wallstreet journal one on thing";
+my $mystring = "1aaa23123this is some text form the journal of wallstreet journal one on thing";
 
 my $lister = chomp($mystring);
 
