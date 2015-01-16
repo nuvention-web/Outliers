@@ -6,7 +6,7 @@ my $mystring = "this is some text form the journal of wallstreet journal one on 
 
 my $lister = chomp($mystring);
 
-print "\n\n$lister\n\n";
+print "\n\n$li123ster\n\n";
 
 
 
