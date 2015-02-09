@@ -152,7 +152,7 @@ function showItem(id){
   }
   
  
-  var iframe_url = "http://intense-horsepower-98-189832.use1-2.nitrousbox.com/1/test.php" +"?url=" + encodeURIComponent(location.href) + "&d=&c=" + encodeBase64ForURL(calcstring);
+  var iframe_url = "http://young-wave-7341.herokuapp.com/" +"?url=" + encodeURIComponent(location.href);
  
   var existing_iframe = document.getElementById('instacalc_bookmarklet_iframe');
   
@@ -177,9 +177,9 @@ function showItem(id){
   
   var str = "";
   str += "<table id='instacalc_bookmarklet_table' valign='top' width='570' cellspacing='0' cellpadding='0'><tr><td width ='550' height='80'>";
-  str += "<iframe frameborder='0' scrolling='no' name='instacalc_bookmarklet_iframe' id='instacalc_bookmarklet_iframe' src='" + iframe_url + "' width='550px' height='175px' style='textalign:right; backgroundColor: white;'></iframe>";
-  str += "</td><td onClick='toggleItem(\"instacalc_bookmarklet\");' style='background: #FFDDDD;' title='click to close window' valign='top' align='center' width='20px'>";
-  str += "<a href='javascript:void(0);' style='width:100%; text-align: middle; color: #FF0000; font-family: Arial;'>x</a>";
+  str += "<iframe frameborder='0' scrolling='no' name='instacalc_bookmarklet_iframe' id='instacalc_bookmarklet_iframe' src='" + iframe_url + "' width='400px' height='450px' style='textalign:right; backgroundColor: white;'></iframe>";
+  str += "</td><td onClick='toggleItem(\"instacalc_bookmarklet\");' style='background: #FFDDDD;' title='click to close window' valign='top' align='left' width='20px'>";
+  str += "<a href='javascript:void(0);' style='width:100%; text-align: left; color: #FF0000; font-family: Arial;'>x</a>";
   str += "</td></tr></table>";
   
   div.innerHTML = str;
