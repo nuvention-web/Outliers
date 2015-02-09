@@ -3,7 +3,6 @@ var router = express.Router();
 
 
 
-
 console.log("working till here");
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -35,7 +34,7 @@ var newURL = uri_dec.slice(6,strLeng);
 */
 
 
-res.render('index', { title: newURL, t1: tester1, t2: tester2 });
+res.render('index', { title: newURL});
 
 
 
@@ -52,24 +51,34 @@ router.post('/jazz', function(req, res, next) {
 var name = req.body.name;
 var msgs = req.body.msg;
 
+var names = ["Sung","Rawan","Asha","Diana","Kirti"];
+var emails = ["shk.kim@gmail.com", "harbi.rawan@gmail.com","asha@gmail.com","diana@gmail.com","Kirti@gmail.com"]
+var email;
+for (var i = 0; i < names.length; i++) {
+	if(names[i] == name){
+		email= emails[i];
+		break; 
+	}
+}
 
-res.send("It was sent3 by:" + req.body.name + "and: " +requestedUrl + "\n" + msgs);
 
-/*
+
+
   var nodemailer = require('nodemailer');
   var transporter = nodemailer.createTransport();
 	transporter.sendMail({
 	    from: 'shk.kim@gmail.com',
-	    to: 'harbi.rawan@gmail.com',
+	    to: email,
 	    subject: 'hello',
 	    text: msgs
 	});
-*/
 
 
 //res.render('users');
 
 //res.send('You sent the name "' + req.body.name + '".');
+
+res.render('jazz',{to: email, msg: msgs })
 
 
 
