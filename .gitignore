@@ -1,0 +1,7 @@
+*.log  
+
+
+db/
+log/
+test/
+tmp/
