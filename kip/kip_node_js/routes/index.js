@@ -19,6 +19,58 @@ var fb = new Firebase("https://boiling-heat-3507.firebaseio.com/");
 
 router.get('/', function(req, res, next) {
 
+var authData = fb.getAuth();
+if (authData) {
+  console.log("User " + authData.uid + " is logged in with " + authData.provider);
+  res.render('jazz',{ conf : "yaaay"});
+} else {
+  console.log("User is logged out");
+  res.render('login');
+}
+
+
+
+
+
+
+});
+
+router.post('/index', function(req, res, next) {
+
+fb.authWithPassword({
+  email    : req.body.email,
+  password : req.body.pass
+}, function(error, authData) {
+  if (error) {
+  	res.render('login');
+    console.log("Login Failed!", error);
+  } else {
+  	res.render('jazz',{ conf : req.body.email});
+    console.log("Authenticated successfully with payload:", authData);
+  }
+});
+
+});
+
+router.get('/index', function(req, res, next) {
+
+var authData = fb.getAuth();
+if (authData) {
+  console.log("User " + authData.uid + " is logged in with " + authData.provider);
+  res.render('jazz',{ conf : "Login"});
+} else {
+  console.log("User is logged out");
+  res.render('jazz',{ conf : "Login Failed!"});
+}
+
+
+
+
+
+});
+
+router.get('/send', function(req, res, next) {
+
 var requestedUrl =  req.url;	
 //requestedUrl;
 //var requestedUrl = req.protocol + '://' + req.url;	
@@ -34,7 +86,7 @@ var newURL = uri_dec.slice(6,strLeng);
 var fArray = ["Sung","Rawan","Asha","Diana","Kirti"];   // TAKE OUT ARRAY;
 
 
-res.render('index', { title:  newURL, friendArray: fArray});
+res.render('send', { title:  newURL, friendArray: fArray});
 
 
 });
@@ -85,14 +137,14 @@ for (var i = 0; i < fArray.length; i++) {
   var nodemailer = require('nodemailer');
   var transporter = nodemailer.createTransport();
 	transporter.sendMail({
-	    from: 'shk.kim@gmail.com',
+	    from: 'diana.yang1028@gmail.com',
 	    to: email,
 	    subject: 'Sung sent you a KIP',
 	    text: 'http://young-wave-7341.herokuapp.com/show/'+sendReciver
 	});
 
 
-var userRec = { From:"Sung", To: sendReciver, Msg: sendMsg , Site: sendUrl, Time: sendTime};
+var userRec = { From:"Diana", To: sendReciver, Msg: sendMsg , Site: sendUrl, Time: sendTime};
 fb.push(userRec);
 
 
