@@ -2,7 +2,7 @@
 
 
 
-All you recomindations in one place! 
+Enabling clutter-free deep engagement. 
 
 ## Running Locally
 
