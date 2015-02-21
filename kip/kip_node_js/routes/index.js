@@ -121,7 +121,7 @@ var sendMsg = req.body.msg;
  <input type="text" name="user" size="51" style= "height:26px" placeholder="You are?"> <br>
 
 */
-var fArray = ["Sung","Rawan","Asha","Diana","Kirti"];
+var fArray = ["sung","rawan","asha","diana","kirti"];
 var emails = ["shk.kim@gmail.com", "harbi.rawan@gmail.com","asha@gmail.com","diana@gmail.com","Kirti@gmail.com"]
 var email;
 for (var i = 0; i < fArray.length; i++) {
@@ -137,14 +137,16 @@ for (var i = 0; i < fArray.length; i++) {
   var nodemailer = require('nodemailer');
   var transporter = nodemailer.createTransport();
 	transporter.sendMail({
-	    from: 'diana.yang1028@gmail.com',
+	    from: 'shk.kim@gmail.com',
 	    to: email,
 	    subject: 'Sung sent you a KIP',
 	    text: 'http://young-wave-7341.herokuapp.com/show/'+sendReciver
 	});
 
 
-var userRec = { From:"Diana", To: sendReciver, Msg: sendMsg , Site: sendUrl, Time: sendTime};
+
+
+var userRec = { From:"sung", To: sendReciver, Msg: sendMsg , Site: sendUrl, Time: sendTime};
 fb.push(userRec);
 
 
@@ -210,6 +212,68 @@ res.render('show', { user: name,  from: fromArray,  message: msgArray, url: urlA
 
 
 
+router.get('/friends', function(req, res, next){
+
+var friendsArray = [];  
+var friendsObj=[];
+var i=0;
+var authData = fb.getAuth();
+
+var fb2 = new Firebase("https://boiling-heat-3507.firebaseio.com/users/"+authData.uid);
+   
+    fb2.on("value", function(snap) {
+
+      //var userSnap = snap.child("simplelogin:2");
+      
+     // console.log(snap.child("friends").val());
+       i=0;
+      var num = snap.child("friends").numChildren();
+      
+     
+      snap.child("friends").forEach(function(childSnapshot) {
+        
+        var key = childSnapshot.key();
+        test=childSnapshot.val();
+          friendsArray[i]=key; 
+          
+          var fb3 = new Firebase("https://boiling-heat-3507.firebaseio.com/users/"+friendsArray[i]);
+          fb3.on("value", function(snap) {
+            friendsObj[i]=snap.val();
+            console.log(i);
+            
+            if(i==(num-1))
+             res.render('friends',{ friends: friendsObj});
+            
+            i++;
+            
+            
+          });
+         
+         
+ 
+      });
+
+       
+      });
+      
+      
+        /* for(var j=0;j<friendsArray.length;j++)
+   {
+        
+        var fb3 = new Firebase("https://boiling-heat-3507.firebaseio.com/users/"+friendsArray[j]);
+        fb3.on("value", function(snap) {
+          friendsObj[j]=snap.val();
+          
+          
+        });
+  }*/
+  
+      
+      
+   
+
+
+});
 
 
 
