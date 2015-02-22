@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var async = require('async');
 
 
 //var FlightSchema = require('../schemas/kiplog');
@@ -211,75 +212,85 @@ res.render('show', { user: name,  from: fromArray,  message: msgArray, url: urlA
 });
 
 
-
-router.get('/friends', function(req, res, next){
-
-var friendsArray = [];  
-var friendsObj=[];
-var i=0;
-var authData = fb.getAuth();
-
-var fb2 = new Firebase("https://boiling-heat-3507.firebaseio.com/users/"+authData.uid);
-   
-    fb2.on("value", function(snap) {
-
-      //var userSnap = snap.child("simplelogin:2");
-      
-     // console.log(snap.child("friends").val());
-       i=0;
-      var num = snap.child("friends").numChildren();
-      
-     
-      snap.child("friends").forEach(function(childSnapshot) {
-        
-        var key = childSnapshot.key();
-        test=childSnapshot.val();
-          friendsArray[i]=key; 
-          
-          var fb3 = new Firebase("https://boiling-heat-3507.firebaseio.com/users/"+friendsArray[i]);
-          fb3.on("value", function(snap) {
-            friendsObj[i]=snap.val();
-            console.log(i);
-            
-            if(i==(num-1))
-             res.render('friends',{ friends: friendsObj});
-            
-            i++;
-            
-            
-          });
-         
-         
- 
-      });
-
-       
-      });
-      
-      
-        /* for(var j=0;j<friendsArray.length;j++)
-   {
-        
-        var fb3 = new Firebase("https://boiling-heat-3507.firebaseio.com/users/"+friendsArray[j]);
-        fb3.on("value", function(snap) {
-          friendsObj[j]=snap.val();
-          
-          
-        });
-  }*/
   
+router.get('/friends', function(req, res, next){
+  
+    
+    get_friends(function (idsArray,namesArray) {
       
+      res.render('friends',{ id: idsArray , name: namesArray});
       
-   
-
-
+    });
+  
+    
 });
-
 
 
 module.exports = router;
 
+//needs testing 
+function get_emails(callback)
+{
+  var emails = [];
+  var j=0;
+  for(var i=0; i< idsArray.length; i++)
+  {
+  var fb3 = new Firebase("https://boiling-heat-3507.firebaseio.com/users/"+idsArray[i]);
+  fb3.on("value", function(snap) {
+    
+    emails[i] = snap.val().email;
+    j++;
+    if(j==idsArray.length)
+     callback(emails);
+    
+  });
+  }
+  
+}
 
+
+function get_friends(callback)
+{
+  
+  
+var idsArray = [];  
+  var namesArray=[];
+  var i=0;
+  var authData = fb.getAuth();
+  var users;
+
+  var fb2 = new Firebase("https://boiling-heat-3507.firebaseio.com/users/simplelogin:2");
+     
+          
+fb2.on("value", function(snap) {
+
+          users = snap.child("friends");
+          
+          var j=0;
+          users.forEach(function(childSnapshot) {
+            {
+              
+               idsArray[j] = childSnapshot.key();
+               namesArray[j] = childSnapshot.val();
+
+              j++;
+              
+            }
+           
+          if(j == users.numChildren())
+          {      
+                 callback(idsArray,namesArray); 
+                
+          }
+          
+             
+            });
+            
+            });          
+        
+
+    
+}
 
 
 
