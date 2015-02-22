@@ -1,0 +1,29 @@
+div.slogan {
+    color:white;
+    margin:0px;
+    pading:0px;
+    opacity:100;
+    position:relative;
+    z-index:1;
+    width:50%;
+    margin-top:8rem;
+    text-align: left;
+}
+
+section.home {
+	height: 60rem;
+	position: relative;
+	z-index: 0;
+	overflow: hidden;
+	background: url("http://app.fiveminutejournal.com/images/bg.jpg") no-repeat scroll center center / cover transparent;
+}
+
+
+.form-signin-heading {
+	color: black;
+}
+
+#form-signin input{
+	width: 70%;
+}
+
