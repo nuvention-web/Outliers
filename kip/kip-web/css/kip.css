@@ -27,3 +27,28 @@ section.home {
 	width: 70%;
 }
 
+div.landingPageImage{
+	background-image: url("http://app.fiveminutejournal.com/images/homescreen@2x.png")
+}
+
+body.forKipNav {
+    padding-top: 100px;
+        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+body {
+	padding-top: 50px;
+}
+
+img.friend {
+	width: 110px; 
+	height: 110px;
+	margin: 0px auto;
+	display:block;
+}
+
+/* use this class to center a div inside another div */
+div.center {
+	width: 50%;
+	margin: 0 auto;
+}
