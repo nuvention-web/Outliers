@@ -36,6 +36,11 @@ body.forKipNav {
         /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
+#homeBody {
+    padding-top: 90px;
+        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
 body {
 	padding-top: 50px;
 }
@@ -52,3 +57,28 @@ div.center {
 	width: 50%;
 	margin: 0 auto;
 }
+
+div.center {
+	width: 50%;
+	margin: 0 auto;
+}
+
+.navbar-xs {
+	min-height:28px; 
+	height: 28px; 
+} 
+
+a.navbar-xs-link {
+	padding: 4px 15px!Important;
+}
+
+span.tag {
+	color: green;
+}
+
+div.sender {
+	color: blue;
+	text-align: right;
+}
+
+
