@@ -10,7 +10,15 @@
     <script src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script> 
     <script type="text/javascript">
-    	
+    	$( document ).ready(function() {
+			// Event binding using a convenience method
+			$( "#btn1" ).bind( "click", function( event ) {
+				$('#myModal').modal('hide');
+				$('#myModal2').modal('show');  
+			});
+		});
+	
+
     </script>
 </head>
 <body class="forKipNav">
@@ -36,7 +44,7 @@
 				  <li role="presentation"><a href="">Remember</a></li>
 				  <li role="presentation"><a href="">Reflect</a></li>
 				</ul>
-		    </div>
+		    </div>		    
     	</div>
     </nav>
     <div class = "container">
@@ -52,11 +60,11 @@
 				        <button class="btn btn-default" aria-label="Plan" type="button">
 				        	<span title="Plan" class="glyphicon glyphicon-calendar"></span>
 				        </button>
-				        <button class="btn btn-default" aria-label="Gift" type="button">
+				        <button class="btn btn-default" aria-label="Gift" data-toggle="modal" data-target="#myModal">
 				        	<span title="Gift" class="glyphicon glyphicon-gift"></span>
 				        </button>
     				</div>
-    			</div>
+    			</div>    			
 			</div>
 			
 			<div class="col-lg-3">
@@ -70,11 +78,11 @@
 				        <button class="btn btn-default" aria-label="Plan" type="button">
 				        	<span title="Plan" class="glyphicon glyphicon-calendar"></span>
 				        </button>
-				        <button class="btn btn-default" aria-label="Gift" type="button">
+				        <button class="btn btn-default" aria-label="Gift" type="button" data-toggle="modal" data-target="#myModal">
 				        	<span title="Gift" class="glyphicon glyphicon-gift"></span>
 				        </button>
     				</div>
-    			</div>
+    			</div>    			
 			</div>
 
 			<div class="col-lg-3">
@@ -88,7 +96,7 @@
 				        <button class="btn btn-default" aria-label="Plan" type="button">
 				        	<span title="Plan" class="glyphicon glyphicon-calendar"></span>
 				        </button>
-				        <button class="btn btn-default" aria-label="Gift" type="button">
+				        <button class="btn btn-default" aria-label="Gift" type="button" data-toggle="modal" data-target="#myModal">
 				        	<span title="Gift" class="glyphicon glyphicon-gift"></span>
 				        </button>
     				</div>
@@ -106,13 +114,46 @@
 				        <button class="btn btn-default" aria-label="Plan" type="button">
 				        	<span title="Plan" class="glyphicon glyphicon-calendar"></span>
 				        </button>
-				        <button class="btn btn-default" aria-label="Gift" type="button">
+				        <button class="btn btn-default" aria-label="Gift" type="button" data-toggle="modal" data-target="#myModal">
 				        	<span title="Gift" class="glyphicon glyphicon-gift"></span>
 				        </button>
     				</div>
     			</div>
 			</div><!-- /.col-lg-4 -->
-
+			<!-- Modal -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">Gift</h4>
+				      </div>
+				      <div class="modal-body">
+				        <p>Distance makes the heart grow fonder. Surprise your best friends, family and loved ones by sending a little something to stay connected and make them feel loved. You can send a bunch of lilies to brighten up your lover’s day, a cup of Starbucks to cheer up your best friend, a blueberry cake to your parents on their anniversary or Nothing is more beautiful  than knowing that someone faraway loves you. Would you like to send a gift? Please click here.</p>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">No Thanks!</button>
+				        <button id="btn1" type="button" class="btn btn-primary">I am interested!</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">Coming Soon!!!</h4>
+				      </div>
+				      <div class="modal-body">
+				        <p>Thanks for showing interest. We would be rolling out this option soon!!!</p>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
 		</div>
     </div>
 </body>
