@@ -14,9 +14,9 @@ var fb = new Firebase("https://boiling-heat-3507.firebaseio.com/");
 
 
 
-///////////  THIS IS THE INDEX PAGE ///////////
+///////////  tester page  ///////////
 router.get('/e', function(req, res, next) {
-  res.render('login');
+  res.render('loginExtn');
   
 });
 
@@ -25,7 +25,8 @@ router.get('/', function(req, res, next) {
 var authData = fb.getAuth();
 if (authData) {
   console.log("User " + authData.uid + " is logged in with " + authData.provider);
-  res.render('home');
+  res.redirect('home');
+  
 } else {
   console.log("User is logged out");
   res.render('login');
@@ -55,25 +56,12 @@ fb.authWithPassword({
 
 });
 
+
 router.get('/home', function(req, res, next) {
 
 var fb = new Firebase("https://boiling-heat-3507.firebaseio.com/messages");
 var authData = fb.getAuth();
-if (authData) {
-
-
-
-// connect it to DB 
-var logged_user = authData.uid;
-
-		var name = req.params.name;
-        var str = name;
-
-
-
-
-		
-        //puts in all Msg
+//puts in all Msg
 		var fromArray = [];
 		var msgArray =[];
 		var urlArray = [];
@@ -82,102 +70,154 @@ var logged_user = authData.uid;
         var timestampArray = [];
 
 
+authData = true;
+if (authData) {
+
+async.series([
+  function(callback){
+
+// connect it to DB 
+ // var logged_user = authData.uid;
+var logged_user = "simplelogin:2";
+
+  		var name = req.params.name;
+          var str = name;
 
 
-        // IF THERE IS A "&" MEANS THAT THIS IS A PERSONAL TIMELINE BETWEEEN TWO PEOPLE
-    	//if(name.charAt(0) == "&" ){
-      if(false ){
 
-            var firstUserNum = str.slice(1,5);
-            var secondUserNum = str.slice(5,9);
-            console.log("USER #1: " + firstUserNum + "#2: " + secondUserNum);
-            console.log("AT SECOND STOP !!! NOT THIRD");
 
-    		fb.on("child_added", function(snap) {
+  		
 
-    		var recivedMsg = snap.val();
+
+
+
+
+          // IF THERE IS A "&" MEANS THAT THIS IS A PERSONAL TIMELINE BETWEEEN TWO PEOPLE
+      	//if(name.charAt(0) == "&" ){
+       /* if(false ){
+
+              var firstUserNum = str.slice(1,5);
+              var secondUserNum = str.slice(5,9);
+              console.log("USER #1: " + firstUserNum + "#2: " + secondUserNum);
+              console.log("AT SECOND STOP !!! NOT THIRD");
+
+      		fb.on("child_added", function(snap) {
+
+      		var recivedMsg = snap.val();
+      
+
+
+                          //AGAIN THIS SHOULD BE THE LOGGED IN TO THE WEBPAGE            // THIS IS FROME THE SEOND PEROSN 
+      		if( (recivedMsg.toIdNum.toString() === firstUserNum) && 
+                  (recivedMsg.fromIdNum.toString() === secondUserNum) 
+                  && (recivedMsg.isLiked === true)  ){
+
+      		
+      		
+      		//routeArray.push(newRoute);
+      		fromArray.push(recivedMsg.From)
+      		urlArray.push(recivedMsg.Site);
+      		msgArray.push(recivedMsg.Msg);
+      		timeArray.push(recivedMsg.Time);
+
+      		}
+
+      		//routeArray = routeArray.reverse();
+      		fromArray = fromArray.reverse();
+      		msgArray = msgArray.reverse();
+      		urlArray = urlArray.reverse();
+      		timeArray = timeArray.reverse();
+
+
+          // res.render('showPersonal', { newroute: routeArray  , user: name,  from: fromArray,  message: msgArray, url: urlArray, time: timeArray, timestampA: timestampArray }); 
+
+
+      		})
+          }else{*/   // THIS IS THE CASE WHEN THE USER JUST LOGS IN -> INBOX
+
+            //  var firstUserNum = str.slice(0,4);   // ONE USE SO TAKE ONE SLICE // fitiching it from Auth instead 
+              console.log("USER is: " + logged_user);
+              
+var i=0;
+
+      		fb.orderByChild("TimeStamp").on("child_added", function(snap) {
+
+      		var recivedMsg = snap.val();
+        console.log(snap.val());
+      		if(recivedMsg.toIdNum === logged_user){   // CHECKS IF USER == MESSAGE ADDRESSEE
+
+
+             // console.log("HERE!!!!!!!!!!!!");
+      		var sign = "&"                               // MAKING NEW LINK //Why the &??
+      		var userName = logged_user;
+      		var addSign = sign.concat(userName); 
+      		var fromName = recivedMsg.fromIdNum;
+      		var newRoute = addSign.concat(fromName); 
+
+
+      		routeArray.push(newRoute);
+      		fromArray.push(recivedMsg.From)
+      		urlArray.push(recivedMsg.Site);
+      		msgArray.push(recivedMsg.Msg);
+      		timeArray.push(recivedMsg.Time);
+              timestampArray.push(recivedMsg.TimeStamp);
+              
+              i++;
+              var x = snap.val();
+              console.log(x);
+              
+              if(i==3)
+              callback();
+
+      		}
+      
+
+
+  		})
+
+
+
+          
+
+
+
+
+
+        //  res.render('show', { newroute: routeArray  , user: name,  from: fromArray,  message: msgArray, url: urlArray, time: timeArray, timestampA: timestampArray }); 
+
+  //}
+
+
+
+
+
+
+
     
+  },function(callback){
+    
+    var logged_user = authData.uid;
+
+    		var name = req.params.name;
+            var str = name;
+
+                   routeArray = routeArray.reverse();
+                		fromArray = fromArray.reverse();
+                		msgArray = msgArray.reverse();
+                		urlArray = urlArray.reverse();
+                		timeArray = timeArray.reverse();
 
 
-                        //AGAIN THIS SHOULD BE THE LOGGED IN TO THE WEBPAGE            // THIS IS FROME THE SEOND PEROSN 
-    		if( (recivedMsg.toIdNum.toString() === firstUserNum) && 
-                (recivedMsg.fromIdNum.toString() === secondUserNum) 
-                && (recivedMsg.isLiked === true)  ){
-
-    		
-    		
-    		//routeArray.push(newRoute);
-    		fromArray.push(recivedMsg.From)
-    		urlArray.push(recivedMsg.Site);
-    		msgArray.push(recivedMsg.Msg);
-    		timeArray.push(recivedMsg.Time);
-
-    		}
-
-    		//routeArray = routeArray.reverse();
-    		fromArray = fromArray.reverse();
-    		msgArray = msgArray.reverse();
-    		urlArray = urlArray.reverse();
-    		timeArray = timeArray.reverse();
-
-
-        // res.render('showPersonal', { newroute: routeArray  , user: name,  from: fromArray,  message: msgArray, url: urlArray, time: timeArray, timestampA: timestampArray }); 
-
-
-    		})
-        }else{   // THIS IS THE CASE WHEN THE USER JUST LOGS IN -> INBOX
-
-          //  var firstUserNum = str.slice(0,4);   // ONE USE SO TAKE ONE SLICE // fitiching it from Auth instead 
-            console.log("USER is: " + logged_user);
-            
-
-
-    		fb.on("child_added", function(snap) {
-
-    		var recivedMsg = snap.val();
-      console.log(snap.val());
-    		if(recivedMsg.toIdNum === logged_user){   // CHECKS IF USER == MESSAGE ADDRESSEE
-
-
-           // console.log("HERE!!!!!!!!!!!!");
-    		var sign = "&"                               // MAKING NEW LINK //Why the &??
-    		var userName = logged_user;
-    		var addSign = sign.concat(userName); 
-    		var fromName = recivedMsg.fromIdNum;
-    		var newRoute = addSign.concat(fromName); 
-
-
-    		routeArray.push(newRoute);
-    		fromArray.push(recivedMsg.From)
-    		urlArray.push(recivedMsg.Site);
-    		msgArray.push(recivedMsg.Msg);
-    		timeArray.push(recivedMsg.Time);
-            timestampArray.push(recivedMsg.TimeStamp);
-            
-
-    		}
-
-
-		})
-
-		routeArray = routeArray.reverse();
-		fromArray = fromArray.reverse();
-		msgArray = msgArray.reverse();
-		urlArray = urlArray.reverse();
-		timeArray = timeArray.reverse();
-        timestampArray = timestampArray.reverse();
-        
+    
+    res.render('home', { newroute: routeArray  , user: name,  from: fromArray,  message: msgArray, url: urlArray, time: timeArray, timestampA: timestampArray }); 
+    callback();
+  }
+]);
 
 
 
-      //  res.render('show', { newroute: routeArray  , user: name,  from: fromArray,  message: msgArray, url: urlArray, time: timeArray, timestampA: timestampArray }); 
-
-}
 
 
-  
-
-res.render('home', { newroute: routeArray  , user: name,  from: fromArray,  message: msgArray, url: urlArray, time: timeArray, timestampA: timestampArray }); 
 
 
 } else {
@@ -289,60 +329,24 @@ res.render('jazz', { conf : conformation });
 
 
 
-router.get('/show/:name?', function(req, res, next){
-
-var name = req.params.name.toLowerCase();
-
-
-
-//puts in all Msg
-var fromArray = [];
-var msgArray =[];
-var urlArray = [];
-var timeArray = [];
-
-fb.on("child_added", function(snap) {
-
-var recivedMsg = snap.val();
-
-if(recivedMsg.To === name){
-
-fromArray.push(recivedMsg.From)
-urlArray.push(recivedMsg.Site);
-msgArray.push(recivedMsg.Msg);
-timeArray.push(recivedMsg.Time);
-}
-
-
-
-})
-
-
-fromArray = fromArray.reverse();
-msgArray = msgArray.reverse();
-urlArray = urlArray.reverse();
-timeArray = timeArray.reverse();
-
-
-
-
-
-
-res.render('show', { user: name,  from: fromArray,  message: msgArray, url: urlArray, time: timeArray}); 
-
-
-});
-
-
   
 router.get('/friends', function(req, res, next){
   
-    
+  var authData = fb.getAuth();
+  if (authData) {
+    console.log("User " + authData.uid + " is logged in with " + authData.provider);
     get_friends(function (idsArray,namesArray) {
       
       res.render('friends',{ id: idsArray , name: namesArray});
       
     });
+    
+  } else {
+    console.log("User is logged out");
+    res.render('login');
+  }
+    
+
   
     
 });
