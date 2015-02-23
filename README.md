@@ -1,6 +1,8 @@
 # Keep it Personal (KIP)
 
-All you recomindations in one place! 
+
+
+Enabling clutter-free deep engagement. 
 
 ## Running Locally
 
@@ -26,5 +28,5 @@ $ heroku open
 
 Bookmarklet : http://intense-horsepower-98-189832.use1-2.nitrousbox.com/2/kip.html
 
-Show page for Rawan: http://young-wave-7341.herokuapp.com/show/rawan
+website: http://young-wave-7341.herokuapp.com/
 
