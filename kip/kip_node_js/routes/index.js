@@ -24,11 +24,11 @@ router.get('/', function(req, res, next) {
 
 var authData = fb.getAuth();
 if (authData) {
-  console.log("User " + authData.uid + " is logged in with " + authData.provider);
+//@  console.log("User " + authData.uid + " is logged in with " + authData.provider);
   res.redirect('home');
   
 } else {
-  console.log("User is logged out");
+//@  console.log("User is logged out");
   res.render('login');
 }
 
@@ -41,16 +41,18 @@ if (authData) {
 
 router.post('/home', function(req, res, next) {
 
+
+
 fb.authWithPassword({
   email    : req.body.email,
   password : req.body.pass
 }, function(error, authData) {
   if (error) {
   	res.render('login');
-    console.log("Login Failed!", error);
+//@    console.log("Login Failed!", error);
   } else {
   	 res.redirect('home');
-    console.log("Authenticated successfully with payload:", authData);
+//@    console.log("Authenticated successfully with payload:", authData);
   }
 });
 
@@ -136,14 +138,14 @@ var logged_user = "simplelogin:2";
           }else{*/   // THIS IS THE CASE WHEN THE USER JUST LOGS IN -> INBOX
 
             //  var firstUserNum = str.slice(0,4);   // ONE USE SO TAKE ONE SLICE // fitiching it from Auth instead 
-              console.log("USER is: " + logged_user);
+ //@             console.log("USER is: " + logged_user);
               
 var i=0;
 
       		fb.orderByChild("TimeStamp").on("child_added", function(snap) {
 
       		var recivedMsg = snap.val();
-        console.log(snap.val());
+//       console.log(snap.val());
       		if(recivedMsg.toIdNum === logged_user){   // CHECKS IF USER == MESSAGE ADDRESSEE
 
 
@@ -164,7 +166,7 @@ var i=0;
               
               i++;
               var x = snap.val();
-              console.log(x);
+//@              console.log(x);
               
               if(i==3)
               callback();
@@ -245,6 +247,11 @@ var strLeng = uri_dec.length
 var newURL = uri_dec.slice(6,strLeng);
 
 
+
+
+
+
+
 var fArray = ["Sung","Rawan","Asha","Diana","Kirti"];   // TAKE OUT ARRAY;
 
 
@@ -280,6 +287,13 @@ var sendTimeStamp = new Date().getTime();
 
 var reciverIdNum = "simplelogin:2";
 var senderIdNum = "simplelogin:4";
+
+var urlLength = sendUrl.length;
+var sendUrl = sendUrl.slice(4,urlLength+1);
+
+
+
+
 
 // send email 
 
