@@ -9,6 +9,22 @@
     <link href="css/kip.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery.js"></script> 
     <script type="text/javascript" src="js/bootstrap.min.js"></script> 
+    <script type="text/javascript">
+    	$( document ).ready(function() {
+			// Event binding using a convenience method
+			$( "#rmLink_1" ).bind( "click", function( event ) {
+				$("#moreContent_1").toggleClass("hidden"); 
+				$("#rmLink_1").toggleClass("hidden");
+				event.preventDefault();
+			});
+
+			$( "#showLink_1" ).bind( "click", function( event ) {
+				$("#moreContent_1").toggleClass("hidden"); 
+				$("#rmLink_1").toggleClass("hidden");
+				event.preventDefault();
+			});
+		});
+    </script>
 </head>
 	<body id="homeBody">
 		 <!--###############################-->
@@ -97,8 +113,12 @@
 	    		</div>
 	    		<div class="col-lg-4">
 	    			<h1>First line</h1>
-	    			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pharetra eu est ultrices mollis. Cras at commodo ligula. Pellentesque non diam velit. Sed felis dui, vehicula convallis metus sit amet, rhoncus pretium orci. Etiam malesuada massa sit amet aliquam suscipit. Nulla eu accumsan quam, sed eleifend odio. Aliquam in dui eget nulla bibendum condimentum quis eget dui. Nunc interdum vestibulum nulla quis placerat. Proin commodo, magna eu euismod ultrices, dolor ipsum interdum lectus, vitae sagittis metus magna eget ex.
-	    			<a href="">Read More >> </a></p>
+	    			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tellus velit, facilisis vitae mi vel, vestibulum faucibus risus. Sed sit amet dictum dolor. Pellentesque sit amet imperdiet neque. Cras neque erat, pharetra non accumsan ac, cursus a nisi. In posuere pulvinar scelerisque. Morbi auctor tellus ac risus iaculis scelerisque. Donec pulvinar lectus et odio blandit, et semper quam pulvinar. In fringilla eros a aliquet maximus. Suspendisse dictum et nisi finibus ultrices. Nam mattis mollis tortor et placerat. Integer eget tellus vel dolor varius cursus. <a id="rmLink_1" href="">Read More >> </a></P>
+	    			<p id="moreContent_1" class="hidden">
+					Fusce congue dolor sit amet mauris sagittis, a aliquet nulla bibendum. Vivamus nibh nisi, vehicula sed libero id, tristique ornare metus. Vivamus varius accumsan leo, at convallis odio imperdiet eu. Aenean a pharetra lacus. Morbi ullamcorper est at sapien ultrices cursus. Etiam mattis nibh erat, a condimentum elit pretium ac. Nullam euismod placerat tellus, sit amet tristique ipsum suscipit efficitur. Aenean at sapien quis lectus luctus eleifend in rhoncus nulla. Quisque tincidunt vel erat in tristique. Vestibulum ut erat in quam vestibulum porta. Maecenas sed fringilla odio. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi blandit metus id dolor ultrices, faucibus tristique ipsum auctor.
+	    			<a id="showLink_1" href="">Show Less >> </a></p>
+	    			<p>
+	    			</p>
 	    			<div>
 	    				<div class="sender" style="float:Left;">Di @ 7:40 PM</div>
 	    				<div class="btn-toolbar" role="toolbar" style="float:Right;">

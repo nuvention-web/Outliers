@@ -81,4 +81,10 @@ div.sender {
 	text-align: right;
 }
 
+.hidden {
+	visibility:false;
+}
 
+.visible {
+	visibility:true;
+}
