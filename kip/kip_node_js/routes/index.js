@@ -70,6 +70,7 @@ var authData = fb.getAuth();
 		var timeArray = [];
 		var routeArray = [];
         var timestampArray = [];
+         var titleArray = [];
 
 
 authData = true;
@@ -169,7 +170,8 @@ var logged_user = "simplelogin:2";
         		urlArray.push(recivedMsg.Site);
         		msgArray.push(recivedMsg.Msg);
         		timeArray.push(recivedMsg.Time);
-                timestampArray.push(recivedMsg.TimeStamp);
+            timestampArray.push(recivedMsg.TimeStamp);
+            titleArray.push(recivedMsg.Title);
                 
                
 
@@ -222,10 +224,11 @@ var logged_user = "simplelogin:2";
                 		msgArray = msgArray.reverse();
                 		urlArray = urlArray.reverse();
                 		timeArray = timeArray.reverse();
+                titleArray = titleArray.reverse();
 
 
     
-    res.render('home', { newroute: routeArray  , user: name,  from: fromArray,  message: msgArray, url: urlArray, time: timeArray, timestampA: timestampArray }); 
+    res.render('home', { newroute: routeArray  , user: name,  from: fromArray,  message: msgArray, url: urlArray, title: titleArray, time: timeArray, timestampA: timestampArray }); 
     callback();
   }
 ]);
@@ -249,18 +252,9 @@ var logged_user = "simplelogin:2";
 
 router.get('/send', function(req, res, next) {
 
-var requestedUrl =  req.url;	
-//requestedUrl;
-//var requestedUrl = req.protocol + '://' + req.url;	
-  var tester1 = req.protocol;
-  var tester2 = req.get('Host');
-  var tester3 = req.url;
 
-var uri_dec = decodeURIComponent(requestedUrl);
-var strLeng = uri_dec.length
-var newURL = uri_dec.slice(6,strLeng);
-
-
+var requestedTitle = req.param('title');
+var requestedURL = req.param('url');
 
 
 
@@ -268,8 +262,9 @@ var newURL = uri_dec.slice(6,strLeng);
 
 var fArray = ["Sung","Rawan","Asha","Diana","Kirti"];   // TAKE OUT ARRAY;
 
+res.render('send', { title:  requestedTitle, url: requestedURL, friendArray: fArray});
+//res.render('send', { title:  newURL, friendArray: fArray});
 
-res.render('send', { title:  newURL, friendArray: fArray});
 
 
 });
@@ -297,13 +292,16 @@ var sendTime = year + "/" + month + "/" + day;  //+  " - " + hour + ":" + minute
 var sendReciver = req.body.name.toLowerCase();
 var sendUrl = req.body.url;
 var sendMsg = req.body.msg;
+var sendTitle = req.body.title;
 var sendTimeStamp = new Date().getTime();
+
+console.log("///////////////////////////////////// Title in db"+sendTitle);
 
 var reciverIdNum = "simplelogin:2";
 var senderIdNum = "simplelogin:4";
 
-var urlLength = sendUrl.length;
-var sendUrl = sendUrl.slice(4,urlLength+1);
+//var urlLength = sendUrl.length;
+//var sendUrl = sendUrl.slice(4,urlLength+1);
 
 
 
@@ -335,7 +333,7 @@ for (var i = 0; i < fArray.length; i++) {
 */
 var fb2 = new Firebase("https://boiling-heat-3507.firebaseio.com/messages"); 
 
-fb2.child(sendTimeStamp).set({ From: "sung", To: sendReciver, Msg: sendMsg , fromIdNum: senderIdNum, toIdNum: reciverIdNum, Site: sendUrl, Time: sendTime, TimeStamp: sendTimeStamp, isLiked: false});
+fb2.child(sendTimeStamp).set({ From: "sung", To: sendReciver, Msg: sendMsg , fromIdNum: senderIdNum, toIdNum: reciverIdNum, Site: sendUrl, Title: sendTitle, Time: sendTime, TimeStamp: sendTimeStamp, isLiked: false});
 
 /*var userRec = { From:"sung", To: sendReciver, Msg: sendMsg , Site: sendUrl, Time: sendTime};
 fb.push(userRec);*/
