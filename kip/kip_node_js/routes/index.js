@@ -140,38 +140,52 @@ var logged_user = "simplelogin:2";
             //  var firstUserNum = str.slice(0,4);   // ONE USE SO TAKE ONE SLICE // fitiching it from Auth instead 
  //@             console.log("USER is: " + logged_user);
               
-var i=0;
-
-      		fb.orderByChild("TimeStamp").on("child_added", function(snap) {
-
-      		var recivedMsg = snap.val();
-//       console.log(snap.val());
-      		if(recivedMsg.toIdNum === logged_user){   // CHECKS IF USER == MESSAGE ADDRESSEE
 
 
-             // console.log("HERE!!!!!!!!!!!!");
-      		var sign = "&"                               // MAKING NEW LINK //Why the &??
-      		var userName = logged_user;
-      		var addSign = sign.concat(userName); 
-      		var fromName = recivedMsg.fromIdNum;
-      		var newRoute = addSign.concat(fromName); 
+      		fb.orderByChild("TimeStamp").on("value", function(snap) {
+
+      	
+      
+      //console.log(snap.numChildren());
+      //console.log(snap.numChildren());
+      
+      var j=0;
+      snap.forEach(function(childSnapshot) {
+        	var recivedMsg = childSnapshot.val();
+        //       console.log(snap.val());
+        		if(recivedMsg.toIdNum === logged_user){   // CHECKS IF USER == MESSAGE ADDRESSEE
 
 
-      		routeArray.push(newRoute);
-      		fromArray.push(recivedMsg.From)
-      		urlArray.push(recivedMsg.Site);
-      		msgArray.push(recivedMsg.Msg);
-      		timeArray.push(recivedMsg.Time);
-              timestampArray.push(recivedMsg.TimeStamp);
-              
-              i++;
-              var x = snap.val();
-//@              console.log(x);
-              
-              if(i==3)
-              callback();
+               // console.log("HERE!!!!!!!!!!!!");
+        		var sign = "&"                               // MAKING NEW LINK //Why the &??
+        		var userName = logged_user;
+        		var addSign = sign.concat(userName); 
+        		var fromName = recivedMsg.fromIdNum;
+        		var newRoute = addSign.concat(fromName); 
 
-      		}
+
+        		routeArray.push(newRoute);
+        		fromArray.push(recivedMsg.From);
+        		urlArray.push(recivedMsg.Site);
+        		msgArray.push(recivedMsg.Msg);
+        		timeArray.push(recivedMsg.Time);
+                timestampArray.push(recivedMsg.TimeStamp);
+                
+               
+
+
+
+        		}
+        
+           j++;
+          
+          if(j==snap.numChildren())
+          callback();
+          
+          
+        });
+       
+
       
 
 
