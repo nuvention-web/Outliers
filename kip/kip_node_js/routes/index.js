@@ -120,7 +120,7 @@ if(authData){   // check again if you are logged in!
 
     fb2.on("child_added", function(snap){
 
-    var recivedMsg = snap.val();
+   var recivedMsg = snap.val();
    findTimeStamp = findTimeStamp.toString();
    findTimeStamp = findTimeStamp.slice(0,13);
   
@@ -441,7 +441,7 @@ var sendReciver = req.body.name.toLowerCase();
 var sendUrl = req.body.url;
 var sendMsg = req.body.msg;
 var sendTitle = req.body.title;
-var sendTimeStamp = new Date().getTime();
+
 var senderIdNum = req.body.senderID;
 
 console.log("///////////////////////////////////// senderIdNum ////////"+senderIdNum.substring(0,senderIdNum.length-1)+"//////");
@@ -466,6 +466,9 @@ var transporter = nodemailer.createTransport();
 if(sendReciver=="all")
 {
   
+  var sendTimeStamp = new Date().getTime();
+
+
   console.log("/////////////////////////////////////////////////////here in all");
   var i=0;
 
@@ -474,6 +477,8 @@ if(sendReciver=="all")
     
     if(friend != "all" && friend != from )
     {
+
+
       console.log(friend+"///////////////"+fArrayID[friend]);
        fb2.child(sendTimeStamp+i).set({ From: from, To: friend, Msg: sendMsg , fromIdNum: senderIdNum, toIdNum: fArrayID[friend], Site: sendUrl, Title: sendTitle, Time: sendTime, TimeStamp: sendTimeStamp+i, isLiked: false});
       
