@@ -385,8 +385,7 @@ res.render('jazz', { conf : conformation });
 
 
 
-/////////////   FRIEND PAGE      //////////////
-
+/////////////   ACTUAL LINK TO FRIEND's SAVED PAGE      //////////////
 
 
 router.post('/:name', function(req, res, next) {
@@ -478,6 +477,98 @@ res.render('homep', { newroute: "HI" ,
           
 
 });
+
+
+
+/////////////  SHOW ALL SENTS!   //////////////
+
+
+router.get('/sent', function(req, res, next) {
+  
+  console.log("I am in sent!!!!!!!!!!");
+
+  var name = req.params.name;
+  var fb = new Firebase("https://boiling-heat-3507.firebaseio.com/messages");
+  var authData = fb.getAuth();
+
+
+//puts in all Msg
+//**************************
+  var fromArray = [];
+  var msgArray =[];
+  var urlArray = [];
+  var timeArray = [];
+  var routeArray = [];
+  var timestampArray =[];
+
+
+
+  //  var logged_user = authData.uid;
+
+
+  /// NOTICE THAT THE USER IS HARDCODED TO ME!!!
+  var logged_user = "simplelogin:2";
+  var str = name;   
+  
+  
+  fb.orderByChild("TimeStamp").on("child_added", function(snap) {
+
+
+
+          var recivedMsg = snap.val();
+          var findFrom = recivedMsg.fromIdNum;
+          console.log(recivedMsg.fromIdNum);    
+
+
+          if( recivedMsg.toIdNum === logged_user){   // CHECKS IF USER == MESSAGE ADDRESSEE
+
+
+                     
+            var sign = "&"                               // MAKING NEW LINK //Why the &??
+            var userName = logged_user;
+            var addSign = sign.concat(userName); 
+            var fromName = recivedMsg.fromIdNum;
+            var newRoute = addSign.concat(fromName); 
+
+
+            fromArray.push(recivedMsg.From)
+            urlArray.push(recivedMsg.Site);
+            msgArray.push(recivedMsg.Msg);
+            timeArray.push(recivedMsg.Time);
+            timestampArray.push(recivedMsg.TimeStamp);
+                    
+          }
+     })
+
+
+  fromArray = fromArray.reverse();
+  msgArray = msgArray.reverse();
+  urlArray = urlArray.reverse();
+  timeArray = timeArray.reverse();
+
+
+ 
+    
+res.render('homep', { newroute: "HI" ,
+                          user: name,
+                          from: fromArray,
+                       message: msgArray,
+                           url: urlArray,
+                          time: timeArray,
+                    timestampA: timestampArray
+                     }); 
+          
+
+});
+
+
+
+
+
+
+
+
+
 
 
 
