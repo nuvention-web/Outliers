@@ -18,6 +18,7 @@ fArrayID["rawan"] = "simplelogin:2";
 fArrayID["asha"] = "simplelogin:3";
 fArrayID["diana"] = "simplelogin:5";
 fArrayID["kirti"] = "simplelogin:6";
+fArrayID["all"] = "simplelogin";
 
 
 var fArray = [];
@@ -26,6 +27,7 @@ fArray["simplelogin:2"] = "rawan" ;
 fArray["simplelogin:3"] = "asha" ;
 fArray["simplelogin:5"] = "diana" ;
 fArray["simplelogin:6"] = "kirti" ;
+fArray["simplelogin"] = "all" ;
 
 
 
@@ -320,15 +322,7 @@ router.get('/saved', function(req, res, next) {
 
  
     
-res.render('homep', { newroute: "HI"  ,
-                          user: name,
-                          from: fromArray,
-                       message: msgArray,
-                           url: urlArray,
-                         title: titleArray,
-                          time: timeArray,
-                    timestampA: timestampArray
-                   }); 
+res.render('homep', { newroute: "HI"  , user: name,  from: fromArray,  message: msgArray, url: urlArray, title: titleArray, time: timeArray, timestampA: timestampArray }); 
   
 } else {
 //@  console.log("User is logged out");
@@ -411,9 +405,10 @@ var sendTimeStamp = new Date().getTime();
 var senderIdNum = req.body.senderID;
 
 console.log("///////////////////////////////////// senderIdNum ////////"+senderIdNum.substring(0,senderIdNum.length-1)+"//////");
-console.log("///////////////////////////////////// sender Name////////"+fArray["simplelogin:4"]+"//////");
+console.log("///////////////////////////////////// sender Name////////"+fArray[sendReciver]+"//////");
 
 var reciverIdNum = fArrayID[sendReciver];
+
 var from= fArray[senderIdNum.substring(0,senderIdNum.length-1)];
 
 console.log("///////////////////////////////////// reciverIdNum////////"+reciverIdNum);
@@ -424,8 +419,31 @@ console.log("///////////////////////////////////// reciverIdNum////////"+reciver
 
 var fb2 = new Firebase("https://boiling-heat-3507.firebaseio.com/messages"); 
 
-fb2.child(sendTimeStamp).set({ From: from, To: sendReciver, Msg: sendMsg , fromIdNum: senderIdNum, toIdNum: reciverIdNum, Site: sendUrl, Title: sendTitle, Time: sendTime, TimeStamp: sendTimeStamp, isLiked: false});
+console.log("////////////////////////sendReciver="+sendReciver+"////////");
 
+if(sendReciver=="all")
+{
+  
+  console.log("/////////////////////////////////////////////////////here in all");
+  var i=0;
+  for(var friend in fArrayID )
+  {
+    
+    if(friend != "all" && friend != from )
+    {
+      console.log(friend+"///////////////"+fArrayID[friend]);
+       fb2.child(sendTimeStamp+i).set({ From: from, To: friend, Msg: sendMsg , fromIdNum: senderIdNum, toIdNum: fArrayID[friend], Site: sendUrl, Title: sendTitle, Time: sendTime, TimeStamp: sendTimeStamp+i, isLiked: false});
+      i++;
+    }
+  }
+  
+}
+else {
+  
+
+
+fb2.child(sendTimeStamp).set({ From: from, To: sendReciver, Msg: sendMsg , fromIdNum: senderIdNum, toIdNum: reciverIdNum, Site: sendUrl, Title: sendTitle, Time: sendTime, TimeStamp: sendTimeStamp, isLiked: false});
+}
 /*var userRec = { From:"sung", To: sendReciver, Msg: sendMsg , Site: sendUrl, Time: sendTime};
 fb.push(userRec);*/
 
@@ -439,7 +457,8 @@ res.render('jazz', { conf : conformation });
 
 
 
-/////////////   ACTUAL LINK TO FRIEND's SAVED PAGE      //////////////
+/////////////   FRIEND PAGE      //////////////
+
 
 
 router.post('/:name', function(req, res, next) {
@@ -508,31 +527,29 @@ var authData = fb.getAuth();
             urlArray.push(recivedMsg.Site);
             msgArray.push(recivedMsg.Msg);
             timeArray.push(recivedMsg.Time);
+            titleArray.push(recivedMsg.Title)
             timestampArray.push(recivedMsg.TimeStamp);
-            titleArray.push(recivedMsg.Title);
                     
           }
      })
 
-/*
-  fromArray = fromArray.reverse();
+
+  /*fromArray = fromArray.reverse();
   msgArray = msgArray.reverse();
   urlArray = urlArray.reverse();
-  timeArray = timeArray.reverse();
-  timestampArray = timestampArray.reverse();
-  titleArray = titleArray.reverse();
+  timeArray = timeArray.reverse();*/
 
-*/
+
  
     
 res.render('homep', { newroute: "HI" ,
                           user: name,
                           from: fromArray,
                        message: msgArray,
-                       title: titleArray,
                            url: urlArray,
                           time: timeArray,
-                    timestampA: timestampArray
+                    timestampA: timestampArray,
+                         title: titleArray
                      }); 
                     
                     
@@ -544,104 +561,6 @@ res.render('login');
           
 
 });
-
-
-
-/////////////  SHOW ALL SENTS!   //////////////
-
-
-router.get('/sent', function(req, res, next) {
-  
-  console.log("I am in sent!!!!!!!!!!");
-
-  var name = req.params.name;
-  var fb = new Firebase("https://boiling-heat-3507.firebaseio.com/messages");
-  var authData = fb.getAuth();
-
-
-//puts in all Msg
-//**************************
-  var fromArray = [];
-  var msgArray =[];
-  var urlArray = [];
-  var timeArray = [];
-  var routeArray = [];
-  var timestampArray =[];
-  var titleArray = [];
-
-
-
-  //  var logged_user = authData.uid;
-
-
-  /// NOTICE THAT THE USER IS HARDCODED TO ME!!!
-  var logged_user = "simplelogin:4";
-  var str = name;   
-  
-  
-  fb.orderByChild("TimeStamp").on("child_added", function(snap) {
-
-
-
-          var recivedMsg = snap.val();
-          var findFrom = recivedMsg.fromIdNum;
-          console.log(recivedMsg.fromIdNum);    
-
-
-          if( recivedMsg.toIdNum === logged_user){   // CHECKS IF USER == MESSAGE ADDRESSEE
-
-
-                     
-            var sign = "&"                               // MAKING NEW LINK //Why the &??
-            var userName = logged_user;
-            var addSign = sign.concat(userName); 
-            var fromName = recivedMsg.fromIdNum;
-            var newRoute = addSign.concat(fromName); 
-
-
-            fromArray.push(recivedMsg.To);      //  NOT THAT THIS HAS CHANGED!!!!
-            urlArray.push(recivedMsg.Site);
-            msgArray.push(recivedMsg.Msg);
-            timeArray.push(recivedMsg.Time);
-            timestampArray.push(recivedMsg.TimeStamp);
-            titleArray.push(recivedMsg.Title);
-                    
-          }
-     })
-
-/*
-  fromArray = fromArray.reverse();
-  msgArray = msgArray.reverse();
-  urlArray = urlArray.reverse();
-  timeArray = timeArray.reverse();
-  timestampArray = timestampArray.reverse();
-  titleArray = titleArray.reverse();
-*/
-
-
- 
-    
-res.render('homep', { newroute: "HI",
-                          user: name,
-                          from: fromArray,
-                       message: msgArray,
-                       title: titleArray,
-                           url: urlArray,
-                          time: timeArray,
-                    timestampA: timestampArray
-                     }); 
-          
-
-});
-
-
-
-
-
-
-
-
-
 
 
 
