@@ -20,6 +20,7 @@ router.get('/e', function(req, res, next) {
   
 });
 
+
 router.get('/', function(req, res, next) {
 
 var authData = fb.getAuth();
@@ -41,6 +42,8 @@ if (authData) {
 
 router.post('/home', function(req, res, next) {
 
+var authData = fb.getAuth();
+if(!authData){
 
 
 fb.authWithPassword({
@@ -55,6 +58,45 @@ fb.authWithPassword({
 //@    console.log("Authenticated successfully with payload:", authData);
   }
 });
+}
+
+
+
+
+
+var fb2 = new Firebase("https://boiling-heat-3507.firebaseio.com/messages");
+
+if(authData){   // check again if you are logged in!
+
+    var findTimeStamp= req.body.timestamp;
+    
+    fb2.on("child_added", function(snap){
+
+    var recivedMsg = snap.val();
+   findTimeStamp = findTimeStamp.toString();
+   findTimeStamp = findTimeStamp.slice(0,13);
+
+    if( (recivedMsg.TimeStamp.toString() === findTimeStamp) &&  (recivedMsg.isLiked === false) )
+    { 
+        /// Sets the isLiked to TRUE
+        //******************** add title
+        fb2.child(findTimeStamp).set({ From: recivedMsg.From, 
+                                       To: recivedMsg.To,
+                                       Msg: recivedMsg.Msg , 
+                                       fromIdNum: recivedMsg.fromIdNum, 
+                                       toIdNum: recivedMsg.toIdNum,
+                                       Site: recivedMsg.Site, 
+                                       Time: recivedMsg.Time, 
+                                       TimeStamp: recivedMsg.TimeStamp, 
+                                       isLiked: true });
+    } 
+
+
+  }) 
+   
+}
+
+
 
 });
 
@@ -88,68 +130,10 @@ var logged_user = "simplelogin:2";
 
 
 
-
-  		
-
-
-
-
-
-          // IF THERE IS A "&" MEANS THAT THIS IS A PERSONAL TIMELINE BETWEEEN TWO PEOPLE
-      	//if(name.charAt(0) == "&" ){
-       /* if(false ){
-
-              var firstUserNum = str.slice(1,5);
-              var secondUserNum = str.slice(5,9);
-              console.log("USER #1: " + firstUserNum + "#2: " + secondUserNum);
-              console.log("AT SECOND STOP !!! NOT THIRD");
-
-      		fb.on("child_added", function(snap) {
-
-      		var recivedMsg = snap.val();
-      
-
-
-                          //AGAIN THIS SHOULD BE THE LOGGED IN TO THE WEBPAGE            // THIS IS FROME THE SEOND PEROSN 
-      		if( (recivedMsg.toIdNum.toString() === firstUserNum) && 
-                  (recivedMsg.fromIdNum.toString() === secondUserNum) 
-                  && (recivedMsg.isLiked === true)  ){
-
-      		
-      		
-      		//routeArray.push(newRoute);
-      		fromArray.push(recivedMsg.From)
-      		urlArray.push(recivedMsg.Site);
-      		msgArray.push(recivedMsg.Msg);
-      		timeArray.push(recivedMsg.Time);
-
-      		}
-
-      		//routeArray = routeArray.reverse();
-      		fromArray = fromArray.reverse();
-      		msgArray = msgArray.reverse();
-      		urlArray = urlArray.reverse();
-      		timeArray = timeArray.reverse();
-
-
-          // res.render('showPersonal', { newroute: routeArray  , user: name,  from: fromArray,  message: msgArray, url: urlArray, time: timeArray, timestampA: timestampArray }); 
-
-
-      		})
-          }else{*/   // THIS IS THE CASE WHEN THE USER JUST LOGS IN -> INBOX
-
-            //  var firstUserNum = str.slice(0,4);   // ONE USE SO TAKE ONE SLICE // fitiching it from Auth instead 
- //@             console.log("USER is: " + logged_user);
-              
-
-
       		fb.orderByChild("TimeStamp").on("value", function(snap) {
 
       	
-      
-      //console.log(snap.numChildren());
-      //console.log(snap.numChildren());
-      
+        
       var j=0;
       snap.forEach(function(childSnapshot) {
         	var recivedMsg = childSnapshot.val();
@@ -228,7 +212,7 @@ var logged_user = "simplelogin:2";
 
 
     
-    res.render('home', { newroute: routeArray  , user: name,  from: fromArray,  message: msgArray, url: urlArray, title: titleArray, time: timeArray, timestampA: timestampArray }); 
+    res.render('home', { newroute: routeArray  , user: name,  from: fromArray,  message: msgArray, url: urlArray, title: titleArray, time: timeArray, timestampA: timestampArray });  
     callback();
   }
 ]);
@@ -250,6 +234,73 @@ var logged_user = "simplelogin:2";
 
 });
 
+
+
+router.get('/saved', function(req, res, next) {
+
+  var fb = new Firebase("https://boiling-heat-3507.firebaseio.com/messages");
+  var authData = fb.getAuth();
+
+
+//puts in all Msg
+//**************************
+  var fromArray = [];
+  var msgArray =[];
+  var urlArray = [];
+  var timeArray = [];
+  var routeArray = [];
+  var timestampArray =[];
+
+
+
+  //  var logged_user = authData.uid;
+
+  var logged_user = "simplelogin:2";
+
+  var name = req.params.name;
+  var str = name;   
+  
+
+    fb.orderByChild("TimeStamp").on("child_added", function(snap) {
+
+          var recivedMsg = snap.val();
+
+          if( (recivedMsg.toIdNum === logged_user) && (recivedMsg.isLiked === true) ){   // CHECKS IF USER == MESSAGE ADDRESSEE
+
+
+                     // console.log("HERE!!!!!!!!!!!!");
+            var sign = "&"                               // MAKING NEW LINK //Why the &??
+            var userName = logged_user;
+            var addSign = sign.concat(userName); 
+            var fromName = recivedMsg.fromIdNum;
+            var newRoute = addSign.concat(fromName); 
+
+
+            //routeArray.push(newRoute);
+            fromArray.push(recivedMsg.From)
+            urlArray.push(recivedMsg.Site);
+            msgArray.push(recivedMsg.Msg);
+            timeArray.push(recivedMsg.Time);
+            timestampArray.push(recivedMsg.TimeStamp);
+                    
+          }
+     })
+
+  //routeArray = routeArray.reverse();
+  fromArray = fromArray.reverse();
+  msgArray = msgArray.reverse();
+  urlArray = urlArray.reverse();
+  timeArray = timeArray.reverse();
+
+
+ 
+    
+res.render('homep', { newroute: "HI"  , user: name,  from: fromArray,  message: msgArray, url: urlArray, time: timeArray, timestampA: timestampArray }); 
+          
+
+});
+
+
 router.get('/send', function(req, res, next) {
 
 
@@ -269,6 +320,26 @@ res.render('send', { title:  requestedTitle, url: requestedURL, friendArray: fAr
 
 });
 
+router.get('/send2', function(req, res, next) {
+
+
+  var requestedTitle = req.param('title');
+  var requestedURL = req.param('url');
+  var senderID = req.param('senderID');
+
+
+
+
+
+  var fArray = ["sung","rawan","asha","diana","kirti"];   // TAKE OUT ARRAY;
+
+  res.render('send', { title:  requestedTitle, url: requestedURL, friendArray: fArray, sender: sender});
+  //res.render('send', { title:  newURL, friendArray: fArray});
+
+
+
+  });
+  
 
 
 
@@ -290,6 +361,7 @@ var hour = dateObj.getHours();
 
 var sendTime = year + "/" + month + "/" + day;  //+  " - " + hour + ":" + minutes + ":" + seconds; 
 var sendReciver = req.body.name.toLowerCase();
+//var sendSender = req.body.Sname.toLowerCase();
 var sendUrl = req.body.url;
 var sendMsg = req.body.msg;
 var sendTitle = req.body.title;
@@ -304,6 +376,17 @@ var senderIdNum = "simplelogin:4";
 //var sendUrl = sendUrl.slice(4,urlLength+1);
 
 
+/*fArray = ["sung","rawan","asha","diana","kirti"];
+var ids = ["simplelogin:4", "simplelogin:2","simplelogin:3","implelogin:5","implelogin:6"]
+for (var i = 0; i < fArray.length; i++) {
+  if(fArray[i] == sendReciver){
+    reciverIdNum= ids[i];
+  }
+  
+  if(fArray[i] == sendSender){
+    senderIdNum= ids[i];
+  }
+}*/
 
 
 

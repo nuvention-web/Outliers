@@ -49,46 +49,44 @@
 		</nav> 
 	    <div class="container">
 	    	<div class="row">
-
+          <!-- THIS IS THE PLACE WHERE THE MESSAGESES ARE LOOPED  -->
 			  <% for(var i=0; i< message.length; i++) {%>
-<form action="/home" method="post">
 
-			    		<div class="col-lg-4">
-			    			<a href=' <%= url[i] %> '> <h1> Link </h1></a>
-			    			<p> <%= message[i] %> </p>
-			    			<div>
-			    				<div class="sender" style="float:Left;">  <%= from[i] %> @ <%= time[i] %> </div>
-			    				<div class="btn-toolbar" role="toolbar" style="float:Right;">
-				    				<div class="btn-group">
+			    <form action="/home" method="post">
 
-				    					<!-- this to check for sender ID -->
-				
-				    					<!-- this to check timestamp -->	
-				    					<input type="text" name="timestamp" size="51" style= "height:26px" value=  '<%= timestampA[i] %> '   >
-								        <button class="btn btn-default" aria-label="Delete" type="button">
-								            <span title="Delete" class="glyphicon glyphicon-trash"></span>
-								        </button>
+	    		<div class="col-lg-4">
+	    			<a href=' <%= url[i] %> '> <h1> Link </h1></a>
+	    			<p> <%= message[i] %> </p>
+	    			<div>
+	    				<div class="sender" style="float:Left;">  <%= from[i] %> @ <%= time[i] %> </div>
+	    				<div class="btn-toolbar" role="toolbar" style="float:Right;">
+		    				<div class="btn-group">
+
+		    					<input type="text" name="timestamp" size="51" style= "height:26px" value=  '<%= timestampA[i] %> '   >
+						        <button class="btn btn-default" aria-label="Delete" type="button">
+						            <span title="Delete" class="glyphicon glyphicon-trash"></span>
+						        </button>
 
 
-								        <button class="btn btn-default" aria-label="Tag" type="button">
-								        	<span title="Tag" class="glyphicon glyphicon-tag"></span>
-								        </button>
+						        <button class="btn btn-default" aria-label="Tag" type="button">
+						        	<span title="Tag" class="glyphicon glyphicon-tag"></span>
+						        </button>
 
-								        
-								        <button class="btn btn-default" aria-label="Love" name = "Love" type="submit">
-								        	<span title="Love" class="glyphicon glyphicon-heart"></span>
-								        </button>
 
-								       <!-- <input type="text" name="timestamp" size="51" style= "height:26px" value=  '<%= timestampA[i] %> '   >  -->
-								        <button class="btn btn-default" aria-label="Share" type="button">
-								        	<span title="Share" class="glyphicon glyphicon-share-alt"></span>
-								        </button>
+						        <button class="btn btn-default" aria-label="Love" name = "Love" type="submit">
+						        	<span title="Love" class="glyphicon glyphicon-heart"></span>
+						        </button>
 
-				    				</div>
-			    				</div>	    				
-			    			</div>
-			    		</div>
-			    	</form>
+
+						        <button class="btn btn-default" aria-label="Share" type="button">
+						        	<span title="Share" class="glyphicon glyphicon-share-alt"></span>
+						        </button>
+
+		    				</div>
+	    				</div>	    				
+	    			</div>
+	    		</div>
+	    	</form>
 			   <% } %>
 	    		
 	    	
