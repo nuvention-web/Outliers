@@ -116,7 +116,8 @@ var fb2 = new Firebase("https://boiling-heat-3507.firebaseio.com/messages");
 if(authData){   // check again if you are logged in!
 
     var findTimeStamp= req.body.timestamp;
-    
+    var logged_user = authData.uid;
+
     fb2.on("child_added", function(snap){
 
     var recivedMsg = snap.val();
@@ -124,7 +125,9 @@ if(authData){   // check again if you are logged in!
    findTimeStamp = findTimeStamp.slice(0,13);
   
 
-    if( (recivedMsg.TimeStamp.toString() === findTimeStamp) &&  (recivedMsg.isLiked === false) )
+    if( (recivedMsg.TimeStamp.toString() === findTimeStamp) &&
+        (recivedMsg.toIdNum === logged_user) &&
+        (recivedMsg.isLiked === false) )
     { 
       
         /// Sets the isLiked to TRUE
