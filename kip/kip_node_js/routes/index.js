@@ -305,7 +305,15 @@ router.get('/saved', function(req, res, next) {
 
  
     
-res.render('homep', { newroute: "HI"  , user: name,  from: fromArray,  message: msgArray, url: urlArray, title: titleArray, time: timeArray, timestampA: timestampArray }); 
+res.render('homep', { newroute: "HI"  ,
+                          user: name,
+                          from: fromArray,
+                       message: msgArray,
+                           url: urlArray,
+                         title: titleArray,
+                          time: timeArray,
+                    timestampA: timestampArray
+                   }); 
   
 } else {
 //@  console.log("User is logged out");
@@ -431,6 +439,7 @@ router.post('/:name', function(req, res, next) {
   var timeArray = [];
   var routeArray = [];
   var timestampArray =[];
+  var titleArray = [];
 
 var authData = fb.getAuth();
   if (authData) {
@@ -480,23 +489,27 @@ var authData = fb.getAuth();
             msgArray.push(recivedMsg.Msg);
             timeArray.push(recivedMsg.Time);
             timestampArray.push(recivedMsg.TimeStamp);
+            titleArray.push(recivedMsg.Title);
                     
           }
      })
 
-
+/*
   fromArray = fromArray.reverse();
   msgArray = msgArray.reverse();
   urlArray = urlArray.reverse();
   timeArray = timeArray.reverse();
+  timestampArray = timestampArray.reverse();
+  titleArray = titleArray.reverse();
 
-
+*/
  
     
 res.render('homep', { newroute: "HI" ,
                           user: name,
                           from: fromArray,
                        message: msgArray,
+                       title: titleArray,
                            url: urlArray,
                           time: timeArray,
                     timestampA: timestampArray
@@ -534,6 +547,7 @@ router.get('/sent', function(req, res, next) {
   var timeArray = [];
   var routeArray = [];
   var timestampArray =[];
+  var titleArray = [];
 
 
 
@@ -541,7 +555,7 @@ router.get('/sent', function(req, res, next) {
 
 
   /// NOTICE THAT THE USER IS HARDCODED TO ME!!!
-  var logged_user = "simplelogin:2";
+  var logged_user = "simplelogin:4";
   var str = name;   
   
   
@@ -565,28 +579,33 @@ router.get('/sent', function(req, res, next) {
             var newRoute = addSign.concat(fromName); 
 
 
-            fromArray.push(recivedMsg.From)
+            fromArray.push(recivedMsg.To);      //  NOT THAT THIS HAS CHANGED!!!!
             urlArray.push(recivedMsg.Site);
             msgArray.push(recivedMsg.Msg);
             timeArray.push(recivedMsg.Time);
             timestampArray.push(recivedMsg.TimeStamp);
+            titleArray.push(recivedMsg.Title);
                     
           }
      })
 
-
+/*
   fromArray = fromArray.reverse();
   msgArray = msgArray.reverse();
   urlArray = urlArray.reverse();
   timeArray = timeArray.reverse();
+  timestampArray = timestampArray.reverse();
+  titleArray = titleArray.reverse();
+*/
 
 
  
     
-res.render('homep', { newroute: "HI" ,
+res.render('homep', { newroute: "HI",
                           user: name,
                           from: fromArray,
                        message: msgArray,
+                       title: titleArray,
                            url: urlArray,
                           time: timeArray,
                     timestampA: timestampArray
