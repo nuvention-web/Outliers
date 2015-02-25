@@ -40,6 +40,11 @@ if (authData) {
 
 });
 
+
+////////////// HOME POSTS ////////////////////
+
+
+
 router.post('/home', function(req, res, next) {
 
 var authData = fb.getAuth();
@@ -95,7 +100,8 @@ if(authData){   // check again if you are logged in!
                                        Title: recivedMsg.Title, 
                                        Time: recivedMsg.Time, 
                                        TimeStamp: recivedMsg.TimeStamp, 
-                                       isLiked: true });
+                                       isLiked: true 
+                                     });
     } 
 
 
@@ -108,42 +114,48 @@ if(authData){   // check again if you are logged in!
 });
 
 
+
+
+////////// HOME GET /////////////////////////
+
+
 router.get('/home', function(req, res, next) {
 
-var fb = new Firebase("https://boiling-heat-3507.firebaseio.com/messages");
-var authData = fb.getAuth();
+    var fb = new Firebase("https://boiling-heat-3507.firebaseio.com/messages");
+    var authData = fb.getAuth();
 //puts in all Msg
 		var fromArray = [];
 		var msgArray =[];
 		var urlArray = [];
 		var timeArray = [];
 		var routeArray = [];
-        var timestampArray = [];
-         var titleArray = [];
-
-
-authData = true;
-if (authData) {
-
-async.series([
-  function(callback){
-
-// connect it to DB 
- // var logged_user = authData.uid;
-var logged_user = "simplelogin:2";
-
-  		var name = req.params.name;
-          var str = name;
+    var timestampArray = [];
+    var titleArray = [];
+    var fromIDArray = [];
 
 
 
-      		fb.orderByChild("TimeStamp").on("value", function(snap) {
+    authData = true;
+    if (authData) {
+
+    async.series([
+    function(callback){
+
+    // connect it to DB 
+    // var logged_user = authData.uid;
+    var logged_user = "simplelogin:2";
+    var name = req.params.name;
+    var str = name;
+
+
+
+    fb.orderByChild("TimeStamp").on("value", function(snap) {
 
       	
         
-      var j=0;
-      snap.forEach(function(childSnapshot) {
-        	var recivedMsg = childSnapshot.val();
+    var j=0;
+        snap.forEach(function(childSnapshot) {
+            var recivedMsg = childSnapshot.val();
         //       console.log(snap.val());
         		if(recivedMsg.toIdNum === logged_user){   // CHECKS IF USER == MESSAGE ADDRESSEE
 
@@ -163,6 +175,7 @@ var logged_user = "simplelogin:2";
         		timeArray.push(recivedMsg.Time);
             timestampArray.push(recivedMsg.TimeStamp);
             titleArray.push(recivedMsg.Title);
+            fromIDArray.push(recivedMsg.fromIdNum);
                 
                
 
@@ -179,35 +192,13 @@ var logged_user = "simplelogin:2";
           
           
         });
-       
-
-      
-
-
   		})
-
-
-
-          
-
-
-
-
-
-        //  res.render('show', { newroute: routeArray  , user: name,  from: fromArray,  message: msgArray, url: urlArray, time: timeArray, timestampA: timestampArray }); 
-
-  //}
-
-
-
-
-
-
 
     
   },function(callback){
     
     var logged_user = authData.uid;
+<<<<<<< HEAD
     
    /* routeArray = routeArray.reverse();
     		fromArray = fromArray.reverse();
@@ -220,31 +211,43 @@ var logged_user = "simplelogin:2";
             var str = name;
 
 
+=======
+  	var name = req.params.name;
+    var str = name;
+
+    routeArray = routeArray.reverse();
+		fromArray = fromArray.reverse();
+		msgArray = msgArray.reverse();
+		urlArray = urlArray.reverse();
+		timeArray = timeArray.reverse();
+    titleArray = titleArray.reverse();
+    fromIDArray = fromIDArray.reverse();
+>>>>>>> 76d42747fc9183ce99894e8e827988c921a03ed7
 
 
     
-    res.render('home', { newroute: routeArray  , user: name,  from: fromArray,  message: msgArray, url: urlArray, title: titleArray, time: timeArray, timestampA: timestampArray });  
+    res.render('home', { fromID: fromIDArray,
+                       newroute: routeArray,
+                           user: name,
+                           from: fromArray,
+                        message: msgArray,
+                            url: urlArray,
+                          title: titleArray,
+                           time: timeArray,
+                     timestampA: timestampArray });  
     callback();
   }
 ]);
 
 
 
-
-
-
-
 } else {
   console.log("User is logged out");
   res.render('login');
-}
+}});
 
 
-
-
-
-});
-
+///////////////  SAVED  SECTION ////////////////////////
 
 
 router.get('/saved', function(req, res, next) {
@@ -268,7 +271,6 @@ router.get('/saved', function(req, res, next) {
   //  var logged_user = authData.uid;
 
   var logged_user = "simplelogin:2";
-
   var name = req.params.name;
   var str = name;   
   
@@ -280,7 +282,7 @@ router.get('/saved', function(req, res, next) {
           if( (recivedMsg.toIdNum === logged_user) && (recivedMsg.isLiked === true) ){   // CHECKS IF USER == MESSAGE ADDRESSEE
 
 
-                     // console.log("HERE!!!!!!!!!!!!");
+                     
             var sign = "&"                               // MAKING NEW LINK //Why the &??
             var userName = logged_user;
             var addSign = sign.concat(userName); 
@@ -299,8 +301,13 @@ router.get('/saved', function(req, res, next) {
           }
      });
 
+<<<<<<< HEAD
   //routeArray = routeArray.reverse();
   /*fromArray = fromArray.reverse();
+=======
+
+  fromArray = fromArray.reverse();
+>>>>>>> 76d42747fc9183ce99894e8e827988c921a03ed7
   msgArray = msgArray.reverse();
   urlArray = urlArray.reverse();
   timeArray = timeArray.reverse();
@@ -334,6 +341,12 @@ res.render('send', { title:  requestedTitle, url: requestedURL, friendArray: fAr
 
 });
 
+
+
+///////////// SEND 2  ///////////////////
+
+
+
 router.get('/send2', function(req, res, next) {
 
 
@@ -348,7 +361,7 @@ router.get('/send2', function(req, res, next) {
   var fArray = ["sung","rawan","asha","diana","kirti"];   // TAKE OUT ARRAY;
 
   res.render('send', { title:  requestedTitle, url: requestedURL, friendArray: fArray, sender: sender});
-  //res.render('send', { title:  newURL, friendArray: fArray});
+  
 
 
 
@@ -386,48 +399,7 @@ console.log("///////////////////////////////////// Title in db"+sendTitle);
 var reciverIdNum = "simplelogin:2";
 var senderIdNum = "simplelogin:4";
 
-//var urlLength = sendUrl.length;
-//var sendUrl = sendUrl.slice(4,urlLength+1);
 
-
-/*fArray = ["sung","rawan","asha","diana","kirti"];
-var ids = ["simplelogin:4", "simplelogin:2","simplelogin:3","implelogin:5","implelogin:6"]
-for (var i = 0; i < fArray.length; i++) {
-  if(fArray[i] == sendReciver){
-    reciverIdNum= ids[i];
-  }
-  
-  if(fArray[i] == sendSender){
-    senderIdNum= ids[i];
-  }
-}*/
-
-
-
-// send email 
-
-/*var fArray = ["sung","rawan","asha","diana","kirti"];
-var emails = ["shk.kim@gmail.com", "harbi.rawan@gmail.com","asha@gmail.com","diana@gmail.com","Kirti@gmail.com"]
-var email;
-for (var i = 0; i < fArray.length; i++) {
-	if(fArray[i] == sendReciver){
-		email= emails[i];
-		break; 
-	}
-}
-
-
-
-
-  var nodemailer = require('nodemailer');
-  var transporter = nodemailer.createTransport();
-	transporter.sendMail({
-	    from: 'shk.kim@gmail.com',
-	    to: email,
-	    subject: 'Sung sent you a KIP',
-	    text: 'http://young-wave-7341.herokuapp.com/show/'+sendReciver
-	});
-*/
 var fb2 = new Firebase("https://boiling-heat-3507.firebaseio.com/messages"); 
 
 fb2.child(sendTimeStamp).set({ From: "sung", To: sendReciver, Msg: sendMsg , fromIdNum: senderIdNum, toIdNum: reciverIdNum, Site: sendUrl, Title: sendTitle, Time: sendTime, TimeStamp: sendTimeStamp, isLiked: false});
@@ -442,6 +414,103 @@ var conformation = "Your message has been sent to " +  sendReciver ;
 res.render('jazz', { conf : conformation });
 
 });
+
+
+
+/////////////   FRIEND PAGE      //////////////
+
+
+
+router.post('/:name', function(req, res, next) {
+  
+  console.log("I am in FRIENDS!!!!!!!!!");
+
+  var name = req.params.name;
+  var fb = new Firebase("https://boiling-heat-3507.firebaseio.com/messages");
+  var authData = fb.getAuth();
+
+
+//puts in all Msg
+//**************************
+  var fromArray = [];
+  var msgArray =[];
+  var urlArray = [];
+  var timeArray = [];
+  var routeArray = [];
+  var timestampArray =[];
+
+
+
+  //  var logged_user = authData.uid;
+
+  var logged_user = "simplelogin:2";
+  var str = name;   
+  var fromId = req.body.fromID;
+
+  console.log("ID is " + fromId);
+
+  fb.orderByChild("TimeStamp").on("child_added", function(snap) {
+
+
+
+          var recivedMsg = snap.val();
+          var findFrom = recivedMsg.fromIdNum;
+          console.log(recivedMsg.fromIdNum);    
+
+//          console.log(recivedMsg.fromIdNum.length);    
+//          console.log(fromId.length);
+          
+          //findFrom = findFrom.toString();
+          fromId = fromId.slice(0,13);
+
+//          console.log(findFrom.length);    
+//          console.log(fromId.length);
+          
+
+
+          if( (recivedMsg.toIdNum === logged_user) &&
+              (recivedMsg.fromIdNum === fromId ) &&
+              (recivedMsg.isLiked === true) ){   // CHECKS IF USER == MESSAGE ADDRESSEE
+
+
+                     
+            var sign = "&"                               // MAKING NEW LINK //Why the &??
+            var userName = logged_user;
+            var addSign = sign.concat(userName); 
+            var fromName = recivedMsg.fromIdNum;
+            var newRoute = addSign.concat(fromName); 
+
+
+            fromArray.push(recivedMsg.From)
+            urlArray.push(recivedMsg.Site);
+            msgArray.push(recivedMsg.Msg);
+            timeArray.push(recivedMsg.Time);
+            timestampArray.push(recivedMsg.TimeStamp);
+                    
+          }
+     })
+
+
+  fromArray = fromArray.reverse();
+  msgArray = msgArray.reverse();
+  urlArray = urlArray.reverse();
+  timeArray = timeArray.reverse();
+
+
+ 
+    
+res.render('homep', { newroute: "HI" ,
+                          user: name,
+                          from: fromArray,
+                       message: msgArray,
+                           url: urlArray,
+                          time: timeArray,
+                    timestampA: timestampArray
+                     }); 
+          
+
+});
+
 
 
 

@@ -1,0 +1,90 @@
+div.slogan {
+    color:white;
+    margin:0px;
+    pading:0px;
+    opacity:100;
+    position:relative;
+    z-index:1;
+    width:50%;
+    margin-top:8rem;
+    text-align: left;
+}
+
+section.home {
+	height: 60rem;
+	position: relative;
+	z-index: 0;
+	overflow: hidden;
+	background: url("http://app.fiveminutejournal.com/images/bg.jpg") no-repeat scroll center center / cover transparent;
+}
+
+
+.form-signin-heading {
+	color: black;
+}
+
+#form-signin input{
+	width: 70%;
+}
+
+div.landingPageImage{
+	background-image: url("http://app.fiveminutejournal.com/images/homescreen@2x.png")
+}
+
+body.forKipNav {
+    padding-top: 100px;
+        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+#homeBody {
+    padding-top: 90px;
+        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+body {
+	padding-top: 50px;
+}
+
+img.friend {
+	width: 110px; 
+	height: 110px;
+	margin: 0px auto;
+	display:block;
+}
+
+/* use this class to center a div inside another div */
+div.center {
+	width: 50%;
+	margin: 0 auto;
+}
+
+div.center {
+	width: 50%;
+	margin: 0 auto;
+}
+
+.navbar-xs {
+	min-height:28px; 
+	height: 28px; 
+} 
+
+a.navbar-xs-link {
+	padding: 4px 15px!Important;
+}
+
+span.tag {
+	color: green;
+}
+
+div.sender {
+	color: blue;
+	text-align: right;
+}
+
+.hidden {
+	visibility:false;
+}
+
+.visible {
+	visibility:true;
+}
