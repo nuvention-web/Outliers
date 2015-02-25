@@ -389,8 +389,10 @@ res.render('jazz', { conf : conformation });
 
 
 
-router.get('/:name', function(req, res, next) {
+router.post('/:name', function(req, res, next) {
   
+  console.log("I am in FRIENDS!!!!!!!!!");
+
   var name = req.params.name;
   var fb = new Firebase("https://boiling-heat-3507.firebaseio.com/messages");
   var authData = fb.getAuth();
@@ -413,11 +415,27 @@ router.get('/:name', function(req, res, next) {
   var str = name;   
   var fromId = req.body.fromID;
 
-  console.log("ID is " + fromId.toString());
+  console.log("ID is " + fromId);
 
   fb.orderByChild("TimeStamp").on("child_added", function(snap) {
 
+
+
           var recivedMsg = snap.val();
+          var findFrom = recivedMsg.fromIdNum;
+          console.log(recivedMsg.fromIdNum);    
+
+//          console.log(recivedMsg.fromIdNum.length);    
+//          console.log(fromId.length);
+          
+          //findFrom = findFrom.toString();
+          fromId = fromId.slice(0,13);
+
+//          console.log(findFrom.length);    
+//          console.log(fromId.length);
+          
+
+
           if( (recivedMsg.toIdNum === logged_user) &&
               (recivedMsg.fromIdNum === fromId ) &&
               (recivedMsg.isLiked === true) ){   // CHECKS IF USER == MESSAGE ADDRESSEE
@@ -449,7 +467,14 @@ router.get('/:name', function(req, res, next) {
 
  
     
-res.render('homep', { newroute: "HI"  , user: name,  from: fromArray,  message: msgArray, url: urlArray, time: timeArray, timestampA: timestampArray }); 
+res.render('homep', { newroute: "HI" ,
+                          user: name,
+                          from: fromArray,
+                       message: msgArray,
+                           url: urlArray,
+                          time: timeArray,
+                    timestampA: timestampArray
+                     }); 
           
 
 });

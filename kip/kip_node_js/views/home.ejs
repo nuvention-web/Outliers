@@ -9,6 +9,7 @@
 	<link href="stylesheets/kip.css" rel="stylesheet">
 	<script type="text/javascript" src="javascripts/jquery.js"></script> 
 	<script type="text/javascript" src="javascripts/bootstrap.min.js"></script> 
+	
 </head>
 	<body id="homeBody">
 		 <!--###############################-->
@@ -52,21 +53,25 @@
 
 			  <% for(var i=0; i< message.length; i++) {%>
 
+  <!-- <a href=' http://localhost:5000/<%= from[i] %> ' id= 'fromLink'>  -->
+  <!-- <a href=' http://localhost:5000/<%= from[i] %> ' type= 'submit' >   </a> -->
+     		  
 
-			  		<form action="/<%= from[i] %> " method="post">
 			    		<div class="col-lg-4">
 			    			<a href=' <%= url[i] %> '> <h1> Link </h1></a>
 			    			<p> <%= message[i] %> </p>
 			    			<div>
-			    				<!-- PLEASE CHANGE THE URL WHEN IT IS SET!! -->
-			    				<a href=' http://localhost:5000/<%= from[i] %> '><div class="sender" style="float:Left;">  <%= from[i] %> @ <%= time[i] %> </div></a>
+			    		<form id="form1" action="/<%= from[i] %>" method="post">	
+			    				<!-- THIS IS WHAT IS MAKING THE AREF LOOK WIERD!!!!! CHANGE CSS FOR BUTTON TYPE -->
+
+			    				<div class="sender"   style="float:Left;"  ><button type='submit'>  <%= from[i] %> @ <%= time[i] %> </button>  </div>
 			    				<div class="btn-toolbar" role="toolbar" style="float:Right;">
 				    				<div class="btn-group">
-	    			
+	    				
 				    					<!-- this to check for sender ID -->
-										<input type="text" name="fromID" size="51" style= "height:26px" value=  '<%= fromID[i] %> '   >	
-								</form>
-					<form action="/home" method="post">
+									<input type="text" name="fromID" size="51" style= "height:26px" value=  '<%= fromID[i] %> '   >	
+	    				</form>
+			<form action="/home" method="post">	
 				    					<!-- this to check timestamp -->	
 				    					<input type="text" name="timestamp" size="51" style= "height:26px" value=  '<%= timestampA[i] %> '   >
 								        <button class="btn btn-default" aria-label="Delete" type="button">
