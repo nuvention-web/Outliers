@@ -196,7 +196,7 @@ if (authData) {
                              timestampA: timestampArray,
                              fromID: fromIDArray
                          });  
-    
+
     callback();
   }
 ]);
@@ -276,7 +276,14 @@ router.get('/saved', function(req, res, next) {
 
  
     
-res.render('homep', { newroute: "HI" , user: name,  from: fromArray,  message: msgArray, url: urlArray, time: timeArray, timestampA: timestampArray }); 
+res.render('homep', { newroute: "HI" ,
+                          user: name,
+                          from: fromArray,
+                       message: msgArray,
+                           url: urlArray,
+                          time: timeArray,
+                    timestampA: timestampArray 
+                  }); 
           
 
 });
@@ -315,7 +322,11 @@ router.get('/send2', function(req, res, next) {
 
   var fArray = ["sung","rawan","asha","diana","kirti"];   // TAKE OUT ARRAY;
 
-  res.render('send', { title:  requestedTitle, url: requestedURL, friendArray: fArray, sender: sender});
+  res.render('send', { title: requestedTitle,
+                         url: requestedURL,
+                 friendArray: fArray,
+                      sender: sender
+                    });
   //res.render('send', { title:  newURL, friendArray: fArray});
 
 
