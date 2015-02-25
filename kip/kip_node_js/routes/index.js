@@ -57,6 +57,23 @@ if (authData) {
 
 });
 
+router.post('/logout', function(req, res, next){
+  
+  var authData = fb.getAuth();
+  if (authData) {
+    fb.unauth();
+    res.render('login');  
+    
+  } else {
+    console.log("User is logged out");
+    res.render('login');
+  }
+    
+
+  
+    
+});
+
 
 ////////////// HOME POSTS ////////////////////
 
@@ -593,6 +610,10 @@ router.get('/friends', function(req, res, next){
   
     
 });
+
+
+
+
 
 
 module.exports = router;
