@@ -51,18 +51,22 @@
 	    	<div class="row">
 
 			  <% for(var i=0; i< message.length; i++) {%>
-<form action="/home" method="post">
 
+
+			  		<form action="/<%= from[i] %> " method="post">
 			    		<div class="col-lg-4">
 			    			<a href=' <%= url[i] %> '> <h1> Link </h1></a>
 			    			<p> <%= message[i] %> </p>
 			    			<div>
-			    				<div class="sender" style="float:Left;">  <%= from[i] %> @ <%= time[i] %> </div>
+			    				<!-- PLEASE CHANGE THE URL WHEN IT IS SET!! -->
+			    				<a href=' http://localhost:5000/<%= from[i] %> '><div class="sender" style="float:Left;">  <%= from[i] %> @ <%= time[i] %> </div></a>
 			    				<div class="btn-toolbar" role="toolbar" style="float:Right;">
 				    				<div class="btn-group">
-
+	    			
 				    					<!-- this to check for sender ID -->
 										<input type="text" name="fromID" size="51" style= "height:26px" value=  '<%= fromID[i] %> '   >	
+								</form>
+					<form action="/home" method="post">
 				    					<!-- this to check timestamp -->	
 				    					<input type="text" name="timestamp" size="51" style= "height:26px" value=  '<%= timestampA[i] %> '   >
 								        <button class="btn btn-default" aria-label="Delete" type="button">

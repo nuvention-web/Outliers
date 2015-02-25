@@ -93,7 +93,8 @@ if(authData){   // check again if you are logged in!
                                        Site: recivedMsg.Site, 
                                        Time: recivedMsg.Time, 
                                        TimeStamp: recivedMsg.TimeStamp, 
-                                       isLiked: true });
+                                       isLiked: true 
+                                     });
     } 
 
 
@@ -256,7 +257,7 @@ router.get('/saved', function(req, res, next) {
           if( (recivedMsg.toIdNum === logged_user) && (recivedMsg.isLiked === true) ){   // CHECKS IF USER == MESSAGE ADDRESSEE
 
 
-                     // console.log("HERE!!!!!!!!!!!!");
+                     
             var sign = "&"                               // MAKING NEW LINK //Why the &??
             var userName = logged_user;
             var addSign = sign.concat(userName); 
@@ -274,7 +275,7 @@ router.get('/saved', function(req, res, next) {
           }
      })
 
-  //routeArray = routeArray.reverse();
+
   fromArray = fromArray.reverse();
   msgArray = msgArray.reverse();
   urlArray = urlArray.reverse();
@@ -308,6 +309,12 @@ res.render('send', { title:  requestedTitle, url: requestedURL, friendArray: fAr
 
 });
 
+
+
+///////////// SEND 2  ///////////////////
+
+
+
 router.get('/send2', function(req, res, next) {
 
 
@@ -322,7 +329,7 @@ router.get('/send2', function(req, res, next) {
   var fArray = ["sung","rawan","asha","diana","kirti"];   // TAKE OUT ARRAY;
 
   res.render('send', { title:  requestedTitle, url: requestedURL, friendArray: fArray, sender: sender});
-  //res.render('send', { title:  newURL, friendArray: fArray});
+  
 
 
 
@@ -375,6 +382,78 @@ var conformation = "Your message has been sent to " +  sendReciver ;
 res.render('jazz', { conf : conformation });
 
 });
+
+
+
+/////////////   FRIEND PAGE      //////////////
+
+
+
+router.get('/:name', function(req, res, next) {
+  
+  var name = req.params.name;
+  var fb = new Firebase("https://boiling-heat-3507.firebaseio.com/messages");
+  var authData = fb.getAuth();
+
+
+//puts in all Msg
+//**************************
+  var fromArray = [];
+  var msgArray =[];
+  var urlArray = [];
+  var timeArray = [];
+  var routeArray = [];
+  var timestampArray =[];
+
+
+
+  //  var logged_user = authData.uid;
+
+  var logged_user = "simplelogin:2";
+  var str = name;   
+  var fromId = req.body.fromID;
+
+  console.log("ID is " + fromId.toString());
+
+  fb.orderByChild("TimeStamp").on("child_added", function(snap) {
+
+          var recivedMsg = snap.val();
+          if( (recivedMsg.toIdNum === logged_user) &&
+              (recivedMsg.fromIdNum === fromId ) &&
+              (recivedMsg.isLiked === true) ){   // CHECKS IF USER == MESSAGE ADDRESSEE
+
+
+                     
+            var sign = "&"                               // MAKING NEW LINK //Why the &??
+            var userName = logged_user;
+            var addSign = sign.concat(userName); 
+            var fromName = recivedMsg.fromIdNum;
+            var newRoute = addSign.concat(fromName); 
+
+
+            fromArray.push(recivedMsg.From)
+            urlArray.push(recivedMsg.Site);
+            msgArray.push(recivedMsg.Msg);
+            timeArray.push(recivedMsg.Time);
+            timestampArray.push(recivedMsg.TimeStamp);
+                    
+          }
+     })
+
+
+  fromArray = fromArray.reverse();
+  msgArray = msgArray.reverse();
+  urlArray = urlArray.reverse();
+  timeArray = timeArray.reverse();
+
+
+ 
+    
+res.render('homep', { newroute: "HI"  , user: name,  from: fromArray,  message: msgArray, url: urlArray, time: timeArray, timestampA: timestampArray }); 
+          
+
+});
+
 
 
 
