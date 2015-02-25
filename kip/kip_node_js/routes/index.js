@@ -80,17 +80,24 @@ if(authData){   // check again if you are logged in!
     var recivedMsg = snap.val();
    findTimeStamp = findTimeStamp.toString();
    findTimeStamp = findTimeStamp.slice(0,13);
+  
 
     if( (recivedMsg.TimeStamp.toString() === findTimeStamp) &&  (recivedMsg.isLiked === false) )
     { 
+      
         /// Sets the isLiked to TRUE
-        //******************** add title
+        
+        console.log(recivedMsg.Msg);
+        
+        //Site: recivedMsg.Site,
+       
         fb2.child(findTimeStamp).set({ From: recivedMsg.From, 
                                        To: recivedMsg.To,
                                        Msg: recivedMsg.Msg , 
                                        fromIdNum: recivedMsg.fromIdNum, 
                                        toIdNum: recivedMsg.toIdNum,
-                                       Site: recivedMsg.Site, 
+                                       Site: recivedMsg.Site,
+                                       Title: recivedMsg.Title, 
                                        Time: recivedMsg.Time, 
                                        TimeStamp: recivedMsg.TimeStamp, 
                                        isLiked: true 
@@ -128,15 +135,15 @@ router.get('/home', function(req, res, next) {
 
 
 
-    authData = true;
+   // authData = true;
     if (authData) {
 
     async.series([
     function(callback){
 
     // connect it to DB 
-    // var logged_user = authData.uid;
-    var logged_user = "simplelogin:2";
+    var logged_user = authData.uid;
+    //var logged_user = "simplelogin:2";
     var name = req.params.name;
     var str = name;
 
@@ -179,7 +186,9 @@ router.get('/home', function(req, res, next) {
            j++;
           
           if(j==snap.numChildren())
+          {
           callback();
+          }
           
           
         });
@@ -189,16 +198,18 @@ router.get('/home', function(req, res, next) {
   },function(callback){
     
     var logged_user = authData.uid;
-  	var name = req.params.name;
-    var str = name;
 
-    routeArray = routeArray.reverse();
-		fromArray = fromArray.reverse();
-		msgArray = msgArray.reverse();
-		urlArray = urlArray.reverse();
-		timeArray = timeArray.reverse();
-    titleArray = titleArray.reverse();
-    fromIDArray = fromIDArray.reverse();
+    
+   /* routeArray = routeArray.reverse();
+    		fromArray = fromArray.reverse();
+    		msgArray = msgArray.reverse();
+    		urlArray = urlArray.reverse();
+    		timeArray = timeArray.reverse();
+    titleArray = titleArray.reverse();*/
+
+    		var name = req.params.name;
+            var str = name;
+
 
 
     
@@ -240,12 +251,15 @@ router.get('/saved', function(req, res, next) {
   var timeArray = [];
   var routeArray = [];
   var timestampArray =[];
+   var titleArray = [];
 
 
+  if (authData) {
 
-  //  var logged_user = authData.uid;
 
-  var logged_user = "simplelogin:2";
+  var logged_user = authData.uid;
+
+  //var logged_user = "simplelogin:2";
   var name = req.params.name;
   var str = name;   
   
@@ -271,20 +285,32 @@ router.get('/saved', function(req, res, next) {
             msgArray.push(recivedMsg.Msg);
             timeArray.push(recivedMsg.Time);
             timestampArray.push(recivedMsg.TimeStamp);
+            titleArray.push(recivedMsg.Title);
                     
           }
-     })
+     });
 
+
+  //routeArray = routeArray.reverse();
+  /*fromArray = fromArray.reverse();
+=======
 
   fromArray = fromArray.reverse();
+
   msgArray = msgArray.reverse();
   urlArray = urlArray.reverse();
   timeArray = timeArray.reverse();
+   titleArray = titleArray.reverse();*/
 
 
  
     
-res.render('homep', { newroute: "HI"  , user: name,  from: fromArray,  message: msgArray, url: urlArray, time: timeArray, timestampA: timestampArray }); 
+res.render('homep', { newroute: "HI"  , user: name,  from: fromArray,  message: msgArray, url: urlArray, title: titleArray, time: timeArray, timestampA: timestampArray }); 
+  
+} else {
+//@  console.log("User is logged out");
+  res.render('login');
+}
           
 
 });
@@ -362,7 +388,7 @@ var sendMsg = req.body.msg;
 var sendTitle = req.body.title;
 var sendTimeStamp = new Date().getTime();
 
-console.log("///////////////////////////////////// Title in db"+sendTitle);
+//console.log("///////////////////////////////////// Title in db"+sendTitle);
 
 var reciverIdNum = "simplelogin:2";
 var senderIdNum = "simplelogin:4";
@@ -406,11 +432,12 @@ router.post('/:name', function(req, res, next) {
   var routeArray = [];
   var timestampArray =[];
 
+var authData = fb.getAuth();
+  if (authData) {
 
+  var logged_user = authData.uid;
 
-  //  var logged_user = authData.uid;
-
-  var logged_user = "simplelogin:2";
+  //var logged_user = "simplelogin:2";
   var str = name;   
   var fromId = req.body.fromID;
 
@@ -474,6 +501,13 @@ res.render('homep', { newroute: "HI" ,
                           time: timeArray,
                     timestampA: timestampArray
                      }); 
+                    
+                    
+} else {
+                    //@  console.log("User is logged out");
+res.render('login');
+}
+
           
 
 });

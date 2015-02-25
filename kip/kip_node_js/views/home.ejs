@@ -53,12 +53,10 @@
 
 			  <% for(var i=0; i< message.length; i++) {%>
 
-  <!-- <a href=' http://localhost:5000/<%= from[i] %> ' id= 'fromLink'>  -->
-  <!-- <a href=' http://localhost:5000/<%= from[i] %> ' type= 'submit' >   </a> -->
      		  
 
 			    		<div class="col-lg-4">
-			    			<a href=' <%= url[i] %> '> <h1> Link </h1></a>
+			    			<a href=' <%= url[i] %> '> <h3> <%=title[i]%> </h3></a>
 			    			<p> <%= message[i] %> </p>
 			    			<div>
 			    		<form id="form1" action="/<%= from[i] %>" method="post">	
@@ -88,7 +86,7 @@
 								        	<span title="Love" class="glyphicon glyphicon-heart"></span>
 								        </button>
 
-								       <!-- <input type="text" name="timestamp" size="51" style= "height:26px" value=  '<%= timestampA[i] %> '   >  -->
+
 								        <button class="btn btn-default" aria-label="Share" type="button">
 								        	<span title="Share" class="glyphicon glyphicon-share-alt"></span>
 								        </button>
