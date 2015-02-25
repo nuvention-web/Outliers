@@ -29,6 +29,14 @@ fArray["simplelogin:5"] = "diana" ;
 fArray["simplelogin:6"] = "kirti" ;
 fArray["simplelogin"] = "all" ;
 
+var fEmails = [];
+fEmails["simplelogin:4"] = "shk.kim@gmail.com" ;
+fEmails["simplelogin:2"] = "harbi.rawan@gmail.com" ;
+fEmails["simplelogin:3"] = "asha.spectrum@gmail.com" ;
+fEmails["simplelogin:5"] = "diana.yang1028@gmail.com" ;
+fEmails["simplelogin:6"] = "kirti.maharwal@gmail.com" ;
+
+
 
 
 ///////////  tester page  ///////////
@@ -437,12 +445,15 @@ console.log("///////////////////////////////////// reciverIdNum////////"+reciver
 var fb2 = new Firebase("https://boiling-heat-3507.firebaseio.com/messages"); 
 
 console.log("////////////////////////sendReciver="+sendReciver+"////////");
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport();
 
 if(sendReciver=="all")
 {
   
   console.log("/////////////////////////////////////////////////////here in all");
   var i=0;
+
   for(var friend in fArrayID )
   {
     
@@ -450,16 +461,42 @@ if(sendReciver=="all")
     {
       console.log(friend+"///////////////"+fArrayID[friend]);
        fb2.child(sendTimeStamp+i).set({ From: from, To: friend, Msg: sendMsg , fromIdNum: senderIdNum, toIdNum: fArrayID[friend], Site: sendUrl, Title: sendTitle, Time: sendTime, TimeStamp: sendTimeStamp+i, isLiked: false});
+      
+      // send email 
+
+
+
+        transporter.sendMail({
+          from: fEmails[senderIdNum.substring(0,senderIdNum.length-1)],
+          to: fEmails[fArrayID[friend]],
+          subject: 'KeepItPersonal – New Message from '+ from,
+          text: from+' sent you something! checkout kip!',
+          html: '<h3>'+from+' sent you something...<a href="https://young-wave-7341.herokuapp.com">Check it out!</a> </h3>'
+        });
+      
+
       i++;
+      
     }
   }
   
 }
 else {
-  
+
+console.log("/////////////////////sending email"+fEmails[senderIdNum.substring(0,senderIdNum.length-1)]+" "+fEmails[reciverIdNum.substring(0,senderIdNum.length-1)]);
+
+transporter.sendMail({
+  from: fEmails[senderIdNum.substring(0,senderIdNum.length-1)],
+  to: fEmails[reciverIdNum.substring(0,senderIdNum.length-1)],
+  subject: 'KeepItPersonal – New Message from '+ from,
+  text: from+' sent you something! checkout kip!',
+  html: '<h3>'+from+' sent you something...<a href="https://young-wave-7341.herokuapp.com">Check it out!</a> </h3>'
+});
 
 
 fb2.child(sendTimeStamp).set({ From: from, To: sendReciver, Msg: sendMsg , fromIdNum: senderIdNum, toIdNum: reciverIdNum, Site: sendUrl, Title: sendTitle, Time: sendTime, TimeStamp: sendTimeStamp, isLiked: false});
+
+
 }
 /*var userRec = { From:"sung", To: sendReciver, Msg: sendMsg , Site: sendUrl, Time: sendTime};
 fb.push(userRec);*/
