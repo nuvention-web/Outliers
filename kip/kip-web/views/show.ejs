@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Title</title>
+        <link rel='stylesheet' href='/stylesheets/style.css' />
+ 
+    </head>
+    
+    <h3> Main INBOX PAGE Hello <%= user %>  </h3>
+    
+    <body>
+    
+ 
+
+    <ul>
+    <% for(var i=0; i< message.length; i++) {%>
+    <form action="/show/&sungsung" method="post" >
+    
+
+        <input type="text" name="timestamp" size="51" style= "height:26px" value=  '<%= timestampA[i] %> '  hidden > <br>
+<li><a href= ' http://localhost:3000/show/<%= newroute[i] %> ' > <%= from[i] %> </a> says: "<%= message[i] %>" on <%= time[i] %>" <br>Check it out: <a href= ' <%= url[i] %> ' >HERE</a>   </li>  
+    
+
+
+
+        <button type="submit" class="btn-warning">KEEP IT</button>
+
+
+    </form>
+<% } %>
+    </ul>
+
+                                                                                                                         
+
+
+
+
+
+    </body>
+</html>
+
+
+<!-- 
+    <ul>
+    <% for(var i=0; i< message.length; i++) {%>
+    <li><a href= ' http://localhost:3000/show/<%= newroute[i] %> ' > <%= from[i] %> </a> says: "<%= message[i] %>" on <%= time[i] %>" <br>Check it out: <a href= ' <%= url[i] %> ' >HERE</a>   </li>  
+    <% } %>
+    </ul>
+
+-->
+
+
+
+
+
+
+ 

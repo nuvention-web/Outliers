@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> KIP </title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+ 
+   
+
+  </head>
+  <body>
+  	
+  <form action="/jazz" method="post" >
+  	<img src="/images/kip2.jpg" alt="logo" style="width:350px;height:70px"><br>
+
+    
+  	<input id="sendList" type="text" name="name" size="51" style= "height:26px" placeholder="Send it to?" list ="friends">
+    <datalist id="friends">
+    <% for(var i=0; i< friendArray.length; i++) { %>
+           <option value="<%= friendArray[i] %>">
+    <% } %>   
+    </datalist> 
+    <br>
+
+  	<input type="text" name="url" size="51" style= "height:26px" value=  '<%= url %> '  hidden > <br>
+    <input type="text" name="title" size="100" style= "height:26px" value=  '<%= title %> '  hidden > <br>
+
+
+	<textarea  placeholder= "You should check this out!" rows="4" cols="50" name="msg"  size="50"  style= "height:150px"></textarea>
+
+	<br>	
+    <button type="submit" class="btn-warning">Send it</button>
+    <button type="button" class="btn-warning">Cancel</button>
+	
+
+
+  </form>
+
+
+
+  </body>
+
+
+
+
+</html>
