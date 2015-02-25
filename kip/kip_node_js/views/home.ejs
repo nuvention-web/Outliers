@@ -22,7 +22,7 @@
 				        <a class="navbar-brand" href="#">Keep It Personal</a>          
 			        </div>
 			        <div id="navbar" class="navbar-collapse collapse">
-				        <form class="navbar-form navbar-right">
+				        <form class="navbar-form navbar-right" action="/logout" method="post">
 					        <button type="submit" class="btn btn-success">Sign Out</button>
 				        </form>
 			        </div><!--/.navbar-collapse -->
@@ -43,7 +43,7 @@
 			    	<ul class="nav nav-pills">
 					  <li role="presentation" class="active"><a class="navbar-xs-link" href="#">New <span class="badge">4</span></a></li>
 					  <li role="presentation"><a class="navbar-xs-link" href="/saved">Saved <span class="badge">10</span></a></li>
-					  <li role="presentation"><a class="navbar-xs-link" href="/sent">Sent <span class="badge">12</span></a></li>
+					  <li role="presentation"><a class="navbar-xs-link" href="#">Sent <span class="badge">12</span></a></li>
 					</ul>
 				</div>
 		    </div>
@@ -51,7 +51,7 @@
 	    <div class="container">
 	    	<div class="row">
 
-			  <% for(var i=0; i< message.length; i++) {%>
+			  <% for(var i=message.length-1; i>= 0; i--) {%>
 
      		  
 

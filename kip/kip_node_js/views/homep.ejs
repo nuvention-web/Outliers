@@ -21,7 +21,7 @@
 				        <a class="navbar-brand" href="#">Keep It Personal</a>          
 			        </div>
 			        <div id="navbar" class="navbar-collapse collapse">
-				        <form class="navbar-form navbar-right">
+				        <form class="navbar-form navbar-right" action="/logout" method="post">
 					        <button type="submit" class="btn btn-success">Sign Out</button>
 				        </form>
 			        </div><!--/.navbar-collapse -->
@@ -50,7 +50,7 @@
 	    <div class="container">
 	    	<div class="row">
           <!-- THIS IS THE PLACE WHERE THE MESSAGESES ARE LOOPED  -->
-			  <% for(var i=0; i< message.length; i++) {%>
+			  <% for(var i=message.length-1; i>= 0; i--)  {%>
 
 			    <form action="/home" method="post">
 
