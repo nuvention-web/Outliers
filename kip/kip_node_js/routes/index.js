@@ -29,14 +29,12 @@ if (authData) {
 } else {
 //@  console.log("User is logged out");
   res.render('login');
-}
+}});
 
 
 
 
 
-
-});
 
 
 ///////////// HOME POSTS ///////////////////
@@ -116,7 +114,7 @@ var timeArray = [];
 var routeArray = [];
 var timestampArray = [];
 var titleArray = [];
-
+var fromIDArray = [];
 
 authData = true;
 if (authData) {
@@ -156,7 +154,7 @@ if (authData) {
         		timeArray.push(recivedMsg.Time);
             timestampArray.push(recivedMsg.TimeStamp);
             titleArray.push(recivedMsg.Title);
-                
+            fromIDArray.push(recivedMsg.fromIdNum);
                
 
 
@@ -185,10 +183,20 @@ if (authData) {
         		urlArray = urlArray.reverse();
         		timeArray = timeArray.reverse();
             titleArray = titleArray.reverse();
-
+            fromIDArray = fromIDArray.reverse();
 
     
-    res.render('home', { newroute: routeArray  , user: name,  from: fromArray,  message: msgArray, url: urlArray, title: titleArray, time: timeArray, timestampA: timestampArray });  
+    res.render('home', { newroute: routeArray,
+                             user: name,
+                             from: fromArray,
+                             message: msgArray,
+                             url: urlArray,
+                             title: titleArray,
+                             time: timeArray,
+                             timestampA: timestampArray,
+                             fromID: fromIDArray
+                         });  
+    
     callback();
   }
 ]);
@@ -268,7 +276,7 @@ router.get('/saved', function(req, res, next) {
 
  
     
-res.render('homep', { newroute: "HI"  , user: name,  from: fromArray,  message: msgArray, url: urlArray, time: timeArray, timestampA: timestampArray }); 
+res.render('homep', { newroute: "HI" , user: name,  from: fromArray,  message: msgArray, url: urlArray, time: timeArray, timestampA: timestampArray }); 
           
 
 });
