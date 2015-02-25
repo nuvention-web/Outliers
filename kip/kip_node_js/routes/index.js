@@ -198,7 +198,7 @@ router.get('/home', function(req, res, next) {
   },function(callback){
     
     var logged_user = authData.uid;
-<<<<<<< HEAD
+
     
    /* routeArray = routeArray.reverse();
     		fromArray = fromArray.reverse();
@@ -210,19 +210,6 @@ router.get('/home', function(req, res, next) {
     		var name = req.params.name;
             var str = name;
 
-
-=======
-  	var name = req.params.name;
-    var str = name;
-
-    routeArray = routeArray.reverse();
-		fromArray = fromArray.reverse();
-		msgArray = msgArray.reverse();
-		urlArray = urlArray.reverse();
-		timeArray = timeArray.reverse();
-    titleArray = titleArray.reverse();
-    fromIDArray = fromIDArray.reverse();
->>>>>>> 76d42747fc9183ce99894e8e827988c921a03ed7
 
 
     
@@ -301,13 +288,13 @@ router.get('/saved', function(req, res, next) {
           }
      });
 
-<<<<<<< HEAD
+
   //routeArray = routeArray.reverse();
   /*fromArray = fromArray.reverse();
 =======
 
   fromArray = fromArray.reverse();
->>>>>>> 76d42747fc9183ce99894e8e827988c921a03ed7
+
   msgArray = msgArray.reverse();
   urlArray = urlArray.reverse();
   timeArray = timeArray.reverse();
