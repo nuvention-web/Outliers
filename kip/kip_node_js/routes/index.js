@@ -296,7 +296,7 @@ router.get('/saved', function(req, res, next) {
   var timeArray = [];
   var routeArray = [];
   var timestampArray =[];
-   var titleArray = [];
+  var titleArray = [];
 
 
   if (authData) {
@@ -350,7 +350,15 @@ router.get('/saved', function(req, res, next) {
 
  
     
-res.render('homep', { newroute: "HI"  , user: name,  from: fromArray,  message: msgArray, url: urlArray, title: titleArray, time: timeArray, timestampA: timestampArray }); 
+  res.render('homep', { newroute: "HI" ,
+                            user: name,
+                            from: fromArray,
+                         message: msgArray,
+                             url: urlArray,
+                           title: titleArray,
+                            time: timeArray,
+                      timestampA: timestampArray
+                       }); 
   
 } else {
 //@  console.log("User is logged out");
@@ -397,7 +405,11 @@ console.log(senderID);
 
 
 
-  res.render('send', { title:  requestedTitle, url: requestedURL, friendArray: fArrayID, senderID: senderID});
+  res.render('send', { title:  requestedTitle,
+                         url: requestedURL,
+                 friendArray: fArrayID,
+                    senderID: senderID
+                  });
   
 
 
