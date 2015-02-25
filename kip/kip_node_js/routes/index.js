@@ -135,15 +135,15 @@ router.get('/home', function(req, res, next) {
 
 
 
-    authData = true;
+   // authData = true;
     if (authData) {
 
     async.series([
     function(callback){
 
     // connect it to DB 
-    // var logged_user = authData.uid;
-    var logged_user = "simplelogin:2";
+    var logged_user = authData.uid;
+    //var logged_user = "simplelogin:2";
     var name = req.params.name;
     var str = name;
 
@@ -254,10 +254,12 @@ router.get('/saved', function(req, res, next) {
    var titleArray = [];
 
 
+  if (authData) {
 
-  //  var logged_user = authData.uid;
 
-  var logged_user = "simplelogin:2";
+  var logged_user = authData.uid;
+
+  //var logged_user = "simplelogin:2";
   var name = req.params.name;
   var str = name;   
   
@@ -304,6 +306,11 @@ router.get('/saved', function(req, res, next) {
  
     
 res.render('homep', { newroute: "HI"  , user: name,  from: fromArray,  message: msgArray, url: urlArray, title: titleArray, time: timeArray, timestampA: timestampArray }); 
+  
+} else {
+//@  console.log("User is logged out");
+  res.render('login');
+}
           
 
 });
@@ -381,7 +388,7 @@ var sendMsg = req.body.msg;
 var sendTitle = req.body.title;
 var sendTimeStamp = new Date().getTime();
 
-console.log("///////////////////////////////////// Title in db"+sendTitle);
+//console.log("///////////////////////////////////// Title in db"+sendTitle);
 
 var reciverIdNum = "simplelogin:2";
 var senderIdNum = "simplelogin:4";
@@ -426,11 +433,12 @@ router.post('/:name', function(req, res, next) {
   var routeArray = [];
   var timestampArray =[];
 
+var authData = fb.getAuth();
+  if (authData) {
 
+  var logged_user = authData.uid;
 
-  //  var logged_user = authData.uid;
-
-  var logged_user = "simplelogin:2";
+  //var logged_user = "simplelogin:2";
   var str = name;   
   var fromId = req.body.fromID;
 
@@ -494,6 +502,13 @@ res.render('homep', { newroute: "HI" ,
                           time: timeArray,
                     timestampA: timestampArray
                      }); 
+                    
+                    
+} else {
+                    //@  console.log("User is logged out");
+res.render('login');
+}
+
           
 
 });
