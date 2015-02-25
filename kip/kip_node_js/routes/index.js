@@ -12,6 +12,21 @@ var Firebase = require("firebase");
 //fb with user 
 var fb = new Firebase("https://boiling-heat-3507.firebaseio.com/");
 
+var fArrayID = [];
+fArrayID["sung"] = "simplelogin:4";
+fArrayID["rawan"] = "simplelogin:2";
+fArrayID["asha"] = "simplelogin:3";
+fArrayID["diana"] = "simplelogin:5";
+fArrayID["kirti"] = "simplelogin:6";
+
+
+var fArray = [];
+fArray["simplelogin:4"] = "sung" ;
+fArray["simplelogin:2"] = "rawan" ;
+fArray["simplelogin:3"] = "asha" ;
+fArray["simplelogin:5"] = "diana" ;
+fArray["simplelogin:6"] = "kirti" ;
+
 
 
 ///////////  tester page  ///////////
@@ -316,7 +331,7 @@ res.render('homep', { newroute: "HI"  , user: name,  from: fromArray,  message: 
 });
 
 
-router.get('/send', function(req, res, next) {
+/*router.get('/send', function(req, res, next) {
 
 
 var requestedTitle = req.param('title');
@@ -333,7 +348,7 @@ res.render('send', { title:  requestedTitle, url: requestedURL, friendArray: fAr
 
 
 
-});
+});*/
 
 
 
@@ -341,20 +356,18 @@ res.render('send', { title:  requestedTitle, url: requestedURL, friendArray: fAr
 
 
 
-router.get('/send2', function(req, res, next) {
+router.get('/send', function(req, res, next) {
 
 
   var requestedTitle = req.param('title');
   var requestedURL = req.param('url');
   var senderID = req.param('senderID');
 
+console.log(senderID);
 
 
 
-
-  var fArray = ["sung","rawan","asha","diana","kirti"];   // TAKE OUT ARRAY;
-
-  res.render('send', { title:  requestedTitle, url: requestedURL, friendArray: fArray, sender: sender});
+  res.render('send', { title:  requestedTitle, url: requestedURL, friendArray: fArrayID, senderID: senderID});
   
 
 
@@ -387,16 +400,23 @@ var sendUrl = req.body.url;
 var sendMsg = req.body.msg;
 var sendTitle = req.body.title;
 var sendTimeStamp = new Date().getTime();
+var senderIdNum = req.body.senderID;
 
-//console.log("///////////////////////////////////// Title in db"+sendTitle);
+console.log("///////////////////////////////////// senderIdNum ////////"+senderIdNum.substring(0,senderIdNum.length-1)+"//////");
+console.log("///////////////////////////////////// sender Name////////"+fArray["simplelogin:4"]+"//////");
 
-var reciverIdNum = "simplelogin:2";
-var senderIdNum = "simplelogin:4";
+var reciverIdNum = fArrayID[sendReciver];
+var from= fArray[senderIdNum.substring(0,senderIdNum.length-1)];
+
+console.log("///////////////////////////////////// reciverIdNum////////"+reciverIdNum);
+
+
+
 
 
 var fb2 = new Firebase("https://boiling-heat-3507.firebaseio.com/messages"); 
 
-fb2.child(sendTimeStamp).set({ From: "sung", To: sendReciver, Msg: sendMsg , fromIdNum: senderIdNum, toIdNum: reciverIdNum, Site: sendUrl, Title: sendTitle, Time: sendTime, TimeStamp: sendTimeStamp, isLiked: false});
+fb2.child(sendTimeStamp).set({ From: from, To: sendReciver, Msg: sendMsg , fromIdNum: senderIdNum, toIdNum: reciverIdNum, Site: sendUrl, Title: sendTitle, Time: sendTime, TimeStamp: sendTimeStamp, isLiked: false});
 
 /*var userRec = { From:"sung", To: sendReciver, Msg: sendMsg , Site: sendUrl, Time: sendTime};
 fb.push(userRec);*/
