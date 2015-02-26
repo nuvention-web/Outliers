@@ -41,7 +41,7 @@ fEmails["simplelogin:6"] = "kirti.maharwal@gmail.com" ;
 
 ///////////  tester page  ///////////
 router.get('/e', function(req, res, next) {
-  res.render('loginExtn');
+  res.render('timeline');
   
 });
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html><head>
-	<title>Keep It Personal!Login</title>
+	<title>TINCAN</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
@@ -18,35 +18,24 @@
 	      	<div class="container">
 		      	<div class="row">
 			      	<div class="navbar-header">
-				        <a class="navbar-brand" href="#">Keep It Personal</a>          
+				        <a class="navbar-brand" href="#">TINCAN</a>          
 			        </div>
 			        <div id="navbar" class="navbar-collapse collapse">
-				        <form class="navbar-form navbar-right">
+				        <form class="navbar-form navbar-right" action="/logout" method="post">
 					        <button type="submit" class="btn btn-success">Sign Out</button>
 				        </form>
 			        </div><!--/.navbar-collapse -->
 			    </div>
-			    <div class="row">
+				<div class="row">
 			    	<ul class="nav nav-pills">
-					  <li role="presentation" class="active"><a href="/home">Home</a></li>
+					  <li role="presentation" ><a href="/home">Home</a></li>
 					  <li role="presentation"><a href="/friends">Friends</a></li>
-					  <li role="presentation"><a href="">Remember</a></li>
-					  <li role="presentation"><a href="">Reflect</a></li>
+					<li role="presentation"  ><a href="/saved">Loved</a></li>
+					<li role="presentation" ><a href="/sent">Sent</a></li>
 					</ul>
-			    </div>			    
+			    </div>		    
 	    	</div>
 	    </nav>
-	    <nav class="navbar navbar-default navbar-xs">
-		    <div class="container">
-		    	<div class="row">
-			    	<ul class="nav nav-pills">
-					  <li role="presentation" class="active"><a class="navbar-xs-link" href="#">New <span class="badge">4</span></a></li>
-					  <li role="presentation"><a class="navbar-xs-link" href="/saved">Saved <span class="badge">10</span></a></li>
-					  <li role="presentation"><a class="navbar-xs-link" href="/sent">Sent <span class="badge">12</span></a></li>
-					</ul>
-				</div>
-		    </div>
-		</nav> 
 	    <div class="container">
 	    	<div class="row">
           <!-- THIS IS THE PLACE WHERE THE MESSAGESES ARE LOOPED  -->
@@ -62,15 +51,15 @@
 	    				<div class="btn-toolbar" role="toolbar" style="float:Right;">
 		    				<div class="btn-group">
 
-		    					<input type="text" name="timestamp" size="51" style= "height:26px" value=  '<%= timestampA[i] %> '   >
-						        <button class="btn btn-default" aria-label="Delete" type="button">
+		    					<input type="text" name="timestamp" size="51" style= "height:26px" value=  '<%= timestampA[i] %> '  hidden >
+						    <!--    <button class="btn btn-default" aria-label="Delete" type="button">
 						            <span title="Delete" class="glyphicon glyphicon-trash"></span>
-						        </button>
+						        </button> -->
 
 
-						        <button class="btn btn-default" aria-label="Tag" type="button">
+						      <!--  <button class="btn btn-default" aria-label="Tag" type="button">
 						        	<span title="Tag" class="glyphicon glyphicon-tag"></span>
-						        </button>
+						        </button> -->
 
 
 						        <button class="btn btn-default" aria-label="Love" name = "Love" type="submit">
@@ -78,9 +67,9 @@
 						        </button>
 
 
-						        <button class="btn btn-default" aria-label="Share" type="button">
+						      <!--  <button class="btn btn-default" aria-label="Share" type="button">
 						        	<span title="Share" class="glyphicon glyphicon-share-alt"></span>
-						        </button>
+						        </button> -->
 
 		    				</div>
 	    				</div>	    				
