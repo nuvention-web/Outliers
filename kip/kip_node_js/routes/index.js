@@ -125,6 +125,7 @@ if(authData){   // check again if you are logged in!
    findTimeStamp = findTimeStamp.slice(0,13);
   
 
+
     if( (recivedMsg.TimeStamp.toString() === findTimeStamp) &&
         (recivedMsg.toIdNum === logged_user) &&
         (recivedMsg.isLiked === false) )
@@ -202,6 +203,8 @@ router.get('/home', function(req, res, next) {
         snap.forEach(function(childSnapshot) {
             var recivedMsg = childSnapshot.val();
         //       console.log(snap.val());
+        
+         
         		if(recivedMsg.toIdNum === logged_user){   // CHECKS IF USER == MESSAGE ADDRESSEE
 
 
@@ -583,9 +586,8 @@ var authData = fb.getAuth();
 //          console.log(fromId.length);
           
 
-
           if( (recivedMsg.toIdNum === logged_user) &&
-              (recivedMsg.fromIdNum === fromId ) &&
+              (recivedMsg.fromIdNum === fromId+" " ) &&
               (recivedMsg.isLiked === true) ){   // CHECKS IF USER == MESSAGE ADDRESSEE
 
 
