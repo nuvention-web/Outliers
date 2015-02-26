@@ -26,9 +26,22 @@ $ heroku open
 
 ## Live Demo
 
-Bookmarklet : http://intense-horsepower-98-189832.use1-2.nitrousbox.com/2/kip.html
+click on the link next to your name to get the bookmarklet 
 
-website: http://young-wave-7341.herokuapp.com/
+Rawan: http://intense-horsepower-98-189832.use1-2.nitrousbox.com/2/kip.html
+
+Asha: http://intense-horsepower-98-189832.use1-2.nitrousbox.com/3/kip.html
+
+Sung: http://intense-horsepower-98-189832.use1-2.nitrousbox.com/4/kip.html
+
+Diana:http://intense-horsepower-98-189832.use1-2.nitrousbox.com/5/kip.html
+
+Kirti: http://intense-horsepower-98-189832.use1-2.nitrousbox.com/6/kip.html
+
+
+go to our landing page and login using your @gmail account. The password is 123.
+
+http://young-wave-7341.herokuapp.com/ 
 
 #KIP Product Management Approach
 
