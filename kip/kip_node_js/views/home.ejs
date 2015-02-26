@@ -67,11 +67,11 @@
 				    				<div class="btn-group">
 	    				
 				    					<!-- this to check for sender ID -->
-									<input type="text" name="fromID" size="51" style= "height:26px" value=  '<%= fromID[i] %> '   >	
+									<input type="text" name="fromID" size="51" style= "height:26px" value=  '<%= fromID[i] %> '  hidden >	
 	    				</form>
 			<form action="/home" method="post">	
 				    					<!-- this to check timestamp -->	
-				    					<input type="text" name="timestamp" size="51" style= "height:26px" value=  '<%= timestampA[i] %> '   >
+				    					<input type="text" name="timestamp" size="51" style= "height:26px" value=  '<%= timestampA[i] %> '  hidden >
 								        <button class="btn btn-default" aria-label="Delete" type="button">
 								            <span title="Delete" class="glyphicon glyphicon-trash"></span>
 								        </button>
