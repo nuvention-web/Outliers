@@ -1,1 +1,1 @@
-web: node  KIP/kip/kip_node_js/app.js
+web: node  /app/kip/kip_node_js/app.js
