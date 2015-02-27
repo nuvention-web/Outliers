@@ -40,7 +40,7 @@ fEmails["simplelogin:6"] = "kirti.maharwal@gmail.com" ;
 
 
 ///////////  tester page  ///////////
-router.get('/e', function(req, res, next) {
+router.get('/timeline', function(req, res, next) {
   res.render('timeline');
   
 });
@@ -316,7 +316,7 @@ router.get('/saved', function(req, res, next) {
 
           var recivedMsg = snap.val();
 
-          if( (recivedMsg.toIdNum === logged_user) && (recivedMsg.isLiked === true) ){   // CHECKS IF USER == MESSAGE ADDRESSEE
+          if( (recivedMsg.toIdNum === logged_user) ){   // CHECKS IF USER == MESSAGE ADDRESSEE
 
 
                      
