@@ -9,8 +9,13 @@ var async = require('async');
 
 //Firebase Setup
 var Firebase = require("firebase");
-//fb with user 
-var fb = new Firebase("https://boiling-heat-3507.firebaseio.com/");
+
+
+
+//////////////////////////////////////////TEST///////////////////////////////////
+var landing_page = "http://young-wave-7341.herokuapp.com/";
+
+var DB = "https://boiling-heat-3507.firebaseio.com/";
 
 var fArrayID = [];
 fArrayID["sung"] = "simplelogin:4";
@@ -36,7 +41,39 @@ fEmails["simplelogin:3"] = "asha.spectrum@gmail.com" ;
 fEmails["simplelogin:5"] = "diana.yang1028@gmail.com" ;
 fEmails["simplelogin:6"] = "kirti.maharwal@gmail.com" ;
 
+//////////////////////////////////////////PRODUCTION!!!///////////////////////////////////
 
+/*var landing_page = "http://tincanit.herokuapp.com";
+
+var DB = "https://tincan123.firebaseio.com/";
+//fb with user 
+
+var fArrayID = [];
+fArrayID["lindsay"] = "simplelogin:3";
+fArrayID["jen"] = "simplelogin:4";
+fArrayID["esfal"] = "simplelogin:5";
+fArrayID["agnes"] = "simplelogin:6";
+fArrayID["all"] = "simplelogin";
+
+
+var fArray = [];
+fArray["simplelogin:3"] = "lindsay" ;
+fArray["simplelogin:4"] = "jen" ;
+fArray["simplelogin:5"] = "esfal" ;
+fArray["simplelogin:6"] = "agnes" ;
+fArray["simplelogin"] = "all" ;
+
+var fEmails = [];
+fEmails["simplelogin:3"] = "lindsay_marshall@emerson.edu" ;
+fEmails["simplelogin:4"] = "jen@4fergs.com" ;
+fEmails["simplelogin:5"] = "esfalstreau@gmail.com" ;
+fEmails["simplelogin:6"] = "wasilewski.agnes@gmail.com" ;*/
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+var fb = new Firebase(DB);
 
 
 ///////////  tester page  ///////////
@@ -111,7 +148,7 @@ fb.authWithPassword({
 
 
 
-var fb2 = new Firebase("https://boiling-heat-3507.firebaseio.com/messages");
+var fb2 = new Firebase(DB+"messages");
 
 if(authData){   // check again if you are logged in!
 
@@ -167,7 +204,7 @@ if(authData){   // check again if you are logged in!
 
 router.get('/home', function(req, res, next) {
 
-    var fb = new Firebase("https://boiling-heat-3507.firebaseio.com/messages");
+    var fb = new Firebase(DB+"messages");
     var authData = fb.getAuth();
 //puts in all Msg
 		var fromArray = [];
@@ -287,7 +324,7 @@ router.get('/home', function(req, res, next) {
 
 router.get('/saved', function(req, res, next) {
 
-  var fb = new Firebase("https://boiling-heat-3507.firebaseio.com/messages");
+  var fb = new Firebase(DB+"messages");
   var authData = fb.getAuth();
 
 
@@ -316,7 +353,7 @@ router.get('/saved', function(req, res, next) {
 
           var recivedMsg = snap.val();
 
-          if( (recivedMsg.toIdNum === logged_user &&  recivedMsg.isLiked === false) ){   // CHECKS IF USER == MESSAGE ADDRESSEE
+          if( (recivedMsg.toIdNum === logged_user && recivedMsg.isLiked === true) ){   // CHECKS IF USER == MESSAGE ADDRESSEE
 
 
                      
@@ -460,7 +497,7 @@ console.log("///////////////////////////////////// reciverIdNum////////"+reciver
 
 
 
-var fb2 = new Firebase("https://boiling-heat-3507.firebaseio.com/messages"); 
+var fb2 = new Firebase(DB+"messages"); 
 
 console.log("////////////////////////sendReciver="+sendReciver+"////////");
 var nodemailer = require('nodemailer');
@@ -487,14 +524,14 @@ if(sendReciver=="all")
       
       // send email 
 
-
+// to: fEmails[fArrayID[friend]],
 
         transporter.sendMail({
           from: fEmails[senderIdNum.substring(0,senderIdNum.length-1)],
-          to: fEmails[fArrayID[friend]],
+          to: "harbi.rawan@gmail.com",
           subject: 'KeepItPersonal – New Message from '+ from,
           text: from+' sent you something! checkout kip!',
-          html: '<h3>'+from+' sent you something...<a href="https://young-wave-7341.herokuapp.com">Check it out!</a> </h3>'
+          html: '<h3>'+from+' sent you something...<a href=landing_page>Check it out!</a> </h3>'
         });
       
 
@@ -508,9 +545,11 @@ else {
 
 console.log("/////////////////////sending email"+fEmails[senderIdNum.substring(0,senderIdNum.length-1)]+" "+fEmails[reciverIdNum.substring(0,senderIdNum.length-1)]);
 
+//to: fEmails[reciverIdNum.substring(0,senderIdNum.length-1)],
+
 transporter.sendMail({
   from: fEmails[senderIdNum.substring(0,senderIdNum.length-1)],
-  to: fEmails[reciverIdNum.substring(0,senderIdNum.length-1)],
+  to: "harbi.rawan@gmail.com",
   subject: 'KeepItPersonal – New Message from '+ from,
   text: from+' sent you something! checkout kip!',
   html: '<h3>'+from+' sent you something...<a href="https://young-wave-7341.herokuapp.com">Check it out!</a> </h3>'
@@ -543,7 +582,7 @@ router.post('/:name', function(req, res, next) {
   console.log("I am in FRIENDS!!!!!!!!!");
 
   var name = req.params.name;
-  var fb = new Firebase("https://boiling-heat-3507.firebaseio.com/messages");
+  var fb = new Firebase(DB+"messages");
   var authData = fb.getAuth();
 
 
@@ -681,7 +720,7 @@ router.get('/sent', function(req, res, next) {
   console.log("I am in sent!!!!!!!!!!");
 
   var name = req.params.name;
-  var fb = new Firebase("https://boiling-heat-3507.firebaseio.com/messages");
+  var fb = new Firebase(DB+"messages");
   var authData = fb.getAuth();
 
 
@@ -777,7 +816,7 @@ function get_emails(callback)
   var j=0;
   for(var i=0; i< idsArray.length; i++)
   {
-  var fb3 = new Firebase("https://boiling-heat-3507.firebaseio.com/users/"+idsArray[i]);
+  var fb3 = new Firebase(DB+"users/"+idsArray[i]);
   fb3.on("value", function(snap) {
     
     emails[i] = snap.val().email;
@@ -801,7 +840,7 @@ var idsArray = [];
   var authData = fb.getAuth();
   var users;
 
-  var fb2 = new Firebase("https://boiling-heat-3507.firebaseio.com/users/"+authData.uid);
+  var fb2 = new Firebase(DB+"users/"+authData.uid);
      
           
 fb2.on("value", function(snap) {
