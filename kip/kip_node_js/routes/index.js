@@ -316,7 +316,7 @@ router.get('/saved', function(req, res, next) {
 
           var recivedMsg = snap.val();
 
-          if( (recivedMsg.toIdNum === logged_user) ){   // CHECKS IF USER == MESSAGE ADDRESSEE
+          if( (recivedMsg.toIdNum === logged_user &&  recivedMsg.isLiked === false) ){   // CHECKS IF USER == MESSAGE ADDRESSEE
 
 
                      
@@ -801,7 +801,7 @@ var idsArray = [];
   var authData = fb.getAuth();
   var users;
 
-  var fb2 = new Firebase("https://boiling-heat-3507.firebaseio.com/users/simplelogin:2");
+  var fb2 = new Firebase("https://boiling-heat-3507.firebaseio.com/users/"+authData.uid);
      
           
 fb2.on("value", function(snap) {
