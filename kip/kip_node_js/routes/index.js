@@ -443,9 +443,11 @@ router.get('/send', function(req, res, next) {
 
 console.log(senderID);
 
+  if(requestedTitle == null){
+    requestedTitle = "Untitled";
+  }
 
-
-  res.render('send', { title:  requestedTitle,
+  res.render('send', { title: requestedTitle,
                          url: requestedURL,
                  friendArray: fArrayID,
                     senderID: senderID
@@ -528,9 +530,9 @@ if(sendReciver=="all")
 
         transporter.sendMail({
           from: fEmails[senderIdNum.substring(0,senderIdNum.length-1)],
-          to: "harbi.rawan@gmail.com",
-          subject: 'KeepItPersonal – New Message from '+ from,
-          text: from+' sent you something! checkout kip!',
+          to: "shk.kim@gmail.com",             //"harbi.rawan@gmail.com",
+          subject: 'Make Room for a new notification from '+ from,
+          text: ' New notification from' + from + '!',
           html: '<h3>'+from+' sent you something...<a href=landing_page>Check it out!</a> </h3>'
         });
       
@@ -550,8 +552,8 @@ console.log("/////////////////////sending email"+fEmails[senderIdNum.substring(0
 transporter.sendMail({
   from: fEmails[senderIdNum.substring(0,senderIdNum.length-1)],
   to: "harbi.rawan@gmail.com",
-  subject: 'KeepItPersonal – New Message from '+ from,
-  text: from+' sent you something! checkout kip!',
+  subject: 'Make Room for a new notification from '+ from,
+  text: ' New notification from' + from + '!',
   html: '<h3>'+from+' sent you something...<a href="https://young-wave-7341.herokuapp.com">Check it out!</a> </h3>'
 });
 
