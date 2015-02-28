@@ -9,19 +9,10 @@
 	<link href="stylesheets/kip.css" rel="stylesheet">
 	<script type="text/javascript" src="javascripts/jquery.js"></script> 
 	<script type="text/javascript" src="javascripts/bootstrap.min.js"></script> 
-	<script type="text/javascript">
-	
-	function disableButton(tsNum, mybool) {
-    if(mybool){
-    document.getElementById(tsNum).disabled = true;
-	}else{
-	document.getElementById(tsNum).disabled = false;	
-	}
-    }
-	</script>
+
 	
 </head>
-	<body id="homeBody" >
+	<body id="homeBody"  onload="tester()">
 		 <!--###############################-->
 	    <!--NAVIGATION ####################-->
 	    <!--###############################-->
@@ -52,6 +43,7 @@
 
 			  <% for(var i=message.length-1; i>= 0; i--) {%>
 
+			  		  
      		  
 
 			    		<div class="col-lg-4">
@@ -86,7 +78,7 @@ checkBool(<%= timestampA[i] %>, <%= isliked[i] %>
 -->
 
 								        
-								       <button class="btn btn-default" id="<%= timestampA[i] %>" aria-label="Love" name = "Love" type="submit" , onclick="disableButton(<%= timestampA[i] %>, <%= isliked[i] %>)"  )>
+								       <button class="btn btn-default" id="<%= timestampA[i] %>" aria-label="Love" name = "Love" type="submit" , onclick="disableButton(<%= timestampA[i] %>, <%= isliked[i] %>)" > 
 								        	<span title="Love" class="glyphicon glyphicon-heart"></span>
 								        </button>
 
@@ -105,6 +97,34 @@ checkBool(<%= timestampA[i] %>, <%= isliked[i] %>
 	    	
 	    	</div>
 	    </div>
-	</body>
+	</body >
+	<script type="text/javascript">
+	
+	function disableButton(tsNum, mybool) {
+    if(mybool){
+    document.getElementById(tsNum).disabled = true;
+	}else{
+	document.getElementById(tsNum).disabled = false;	
+	}
+    }
+	</script> 
+	<script>
 
+	function tester(){
+		var leng =  <%= message.length-1 %>;
+	<% for(var i=message.length-1; i>= 0; i--){ %>
+		//var  tm2=  <%= isliked[i]%>;
+		//alert(tm2);
+	
+		// for(var i = 0; i < leng ; i++){
+		// 	var tm = <%= isliked.length %>;
+		// 	var tm2 = 
+		// 	alert(typeof tm);
+			
+	   disableButton(<%= timestampA[i] %> , <%= isliked[i] %>);
+
+	   <% } %>
+		}
+	
+	</script>
 </html>
