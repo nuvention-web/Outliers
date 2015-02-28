@@ -9,9 +9,19 @@
 	<link href="stylesheets/kip.css" rel="stylesheet">
 	<script type="text/javascript" src="javascripts/jquery.js"></script> 
 	<script type="text/javascript" src="javascripts/bootstrap.min.js"></script> 
+	<script type="text/javascript">
+	
+	function disableButton(tsNum, mybool) {
+    if(mybool){
+    document.getElementById(tsNum).disabled = true;
+	}else{
+	document.getElementById(tsNum).disabled = false;	
+	}
+    }
+	</script>
 	
 </head>
-	<body id="homeBody">
+	<body id="homeBody" >
 		 <!--###############################-->
 	    <!--NAVIGATION ####################-->
 	    <!--###############################-->
@@ -56,9 +66,9 @@
 				    				<div class="btn-group">
 	    				
 				    					<!-- this to check for sender ID -->
-									<input type="text" name="fromID" size="51" style= "height:26px" value=  '<%= fromID[i] %> '  hidden >	
+									<input type="text" name="fromID" size="51" style= "height:26px" value=  '<%= fromID[i] %> '  hidden  >	
 	    				</form>
-			<form action="/home" method="post">	
+			<form action="/home" method="post" >	
 				    					<!-- this to check timestamp -->	
 				    					<input type="text" name="timestamp" size="51" style= "height:26px" value=  '<%= timestampA[i] %> '  hidden >
 								       <!--  <button class="btn btn-default" aria-label="Delete" type="button">
@@ -68,10 +78,15 @@
 
 								       <!--  <button class="btn btn-default" aria-label="Tag" type="button">
 								        	<span title="Tag" class="glyphicon glyphicon-tag"></span>
-								        </button> -->
+								        </button> 
+
+	onclick="disableButton(<%= timestampA[i] %>, <%= isliked[i] %>)"
+checkBool(<%= timestampA[i] %>, <%= isliked[i] %>
+
+-->
 
 								        
-								       <button class="btn btn-default" aria-label="Love" name = "Love" type="submit">
+								       <button class="btn btn-default" id="<%= timestampA[i] %>" aria-label="Love" name = "Love" type="submit" , onclick="disableButton(<%= timestampA[i] %>, <%= isliked[i] %>)"  )>
 								        	<span title="Love" class="glyphicon glyphicon-heart"></span>
 								        </button>
 

@@ -215,6 +215,7 @@ router.get('/home', function(req, res, next) {
     var timestampArray = [];
     var titleArray = [];
     var fromIDArray = [];
+    var isLikedArray = [];
 
 
 
@@ -261,10 +262,13 @@ router.get('/home', function(req, res, next) {
             timestampArray.push(recivedMsg.TimeStamp);
             titleArray.push(recivedMsg.Title);
             fromIDArray.push(recivedMsg.fromIdNum);
+            isLikedArray.push(recivedMsg.isLiked);
                 
                
 
-
+            console.log(recivedMsg.isLiked);
+            console.log(recivedMsg.isLiked.length);
+            console.log(typeof recivedMsg.isLiked);
 
         		}
         
@@ -306,7 +310,9 @@ router.get('/home', function(req, res, next) {
                             url: urlArray,
                           title: titleArray,
                            time: timeArray,
-                     timestampA: timestampArray });  
+                     timestampA: timestampArray,
+                        isliked: isLikedArray
+                      });  
     callback();
   }
 ]);
