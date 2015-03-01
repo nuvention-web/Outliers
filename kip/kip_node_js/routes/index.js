@@ -150,10 +150,15 @@ fb.authWithPassword({
 
 var fb2 = new Firebase(DB+"messages");
 
-if(authData){   // check again if you are logged in!
+if(authData){   
+ 
+  
+  // check again if you are logged in!
 
     var findTimeStamp= req.body.timestamp;
     var logged_user = authData.uid;
+    
+    console.log("findTimeStamp "+findTimeStamp);
 
     fb2.on("child_added", function(snap){
 
@@ -185,6 +190,7 @@ if(authData){   // check again if you are logged in!
                                        TimeStamp: recivedMsg.TimeStamp, 
                                        isLiked: true 
                                      });
+                                     res.redirect('home');
     } 
 
 
