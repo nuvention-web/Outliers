@@ -12,11 +12,11 @@ var Firebase = require("firebase");
 
 
 
+
 //////////////////////////////////////////TEST///////////////////////////////////
 var landing_page = "http://young-wave-7341.herokuapp.com/";
 
 var DB = "https://boiling-heat-3507.firebaseio.com/";
-
 var fArrayID = [];
 fArrayID["sung"] = "simplelogin:4";
 fArrayID["rawan"] = "simplelogin:2";
@@ -443,9 +443,9 @@ res.render('send', { title:  requestedTitle, url: requestedURL, friendArray: fAr
 router.get('/send', function(req, res, next) {
 
 
-  var requestedTitle = req.param('title');
-  var requestedURL = req.param('url');
-  var senderID = req.param('senderID');
+var requestedTitle = req.query.title;
+  var requestedURL = req.query.url;
+  var senderID = req.query.senderID;
 
 console.log(senderID);
 
@@ -504,7 +504,6 @@ console.log("///////////////////////////////////// reciverIdNum////////"+reciver
 
 
 
-
 var fb2 = new Firebase(DB+"messages"); 
 
 console.log("////////////////////////sendReciver="+sendReciver+"////////");
@@ -536,7 +535,7 @@ if(sendReciver=="all")
 
         transporter.sendMail({
           from: fEmails[senderIdNum.substring(0,senderIdNum.length-1)],
-          to: "shk.kim@gmail.com",             //"harbi.rawan@gmail.com",
+          to: fEmails[fArrayID[friend]],
           subject: 'Make Room for a new notification from '+ from,
           text: ' New notification from' + from + '!',
           html: '<h3>'+from+' sent you something...<a href=landing_page>Check it out!</a> </h3>'
@@ -550,6 +549,8 @@ if(sendReciver=="all")
   
 }
 else {
+  
+  var sendTimeStamp = new Date().getTime();
 
 console.log("/////////////////////sending email"+fEmails[senderIdNum.substring(0,senderIdNum.length-1)]+" "+fEmails[reciverIdNum.substring(0,senderIdNum.length-1)]);
 
@@ -557,10 +558,10 @@ console.log("/////////////////////sending email"+fEmails[senderIdNum.substring(0
 
 transporter.sendMail({
   from: fEmails[senderIdNum.substring(0,senderIdNum.length-1)],
-  to: "harbi.rawan@gmail.com",
+  fEmails[reciverIdNum.substring(0,senderIdNum.length-1)],
   subject: 'Make Room for a new notification from '+ from,
   text: ' New notification from' + from + '!',
-  html: '<h3>'+from+' sent you something...<a href="https://young-wave-7341.herokuapp.com">Check it out!</a> </h3>'
+  html: '<h3>'+from+' sent you something...<a href=landing_page>Check it out!</a> </h3>'
 });
 
 
