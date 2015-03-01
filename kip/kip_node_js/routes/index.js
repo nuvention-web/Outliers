@@ -558,7 +558,7 @@ console.log("/////////////////////sending email"+fEmails[senderIdNum.substring(0
 
 transporter.sendMail({
   from: fEmails[senderIdNum.substring(0,senderIdNum.length-1)],
-  fEmails[reciverIdNum.substring(0,senderIdNum.length-1)],
+  fEmails: [reciverIdNum.substring(0,senderIdNum.length-1)],
   subject: 'Make Room for a new notification from '+ from,
   text: ' New notification from' + from + '!',
   html: '<h3>'+from+' sent you something...<a href=landing_page>Check it out!</a> </h3>'
