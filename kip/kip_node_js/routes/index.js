@@ -641,8 +641,8 @@ var authData = fb.getAuth();
           
 
           if( (recivedMsg.toIdNum === logged_user) &&
-              (recivedMsg.fromIdNum === fromId+" " ) &&
-              (recivedMsg.isLiked === true) ){   // CHECKS IF USER == MESSAGE ADDRESSEE
+              (recivedMsg.fromIdNum === fromId+" " )
+              /*(recivedMsg.isLiked === true)*/ ){   // CHECKS IF USER == MESSAGE ADDRESSEE
 
 
                      
