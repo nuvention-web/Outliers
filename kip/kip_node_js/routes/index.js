@@ -694,6 +694,157 @@ res.render('login');
 
 
 
+///////////////// FRIEND AND LOVED !  //////////////////
+
+
+
+
+router.get('/saved/:name', function(req, res, next) {
+    
+
+    var fb = new Firebase(DB+"messages");
+    var authData = fb.getAuth();
+//puts in all Msg
+    var fromArray = [];
+    var msgArray =[];
+    var urlArray = [];
+    var timeArray = [];
+    var routeArray = [];
+    var timestampArray = [];
+    var titleArray = [];
+    var fromIDArray = [];
+    var isLikedArray = [];
+
+
+
+   // authData = true;
+    if (authData) {
+
+    async.series([
+    function(callback){
+
+    // connect it to DB 
+    var logged_user = authData.uid;
+    //var logged_user = "simplelogin:2";
+    var name = req.params.name;
+    var str = name;
+
+    var fromId = req.body.fromID;
+
+
+    fb.orderByChild("TimeStamp").on("value", function(snap) {
+
+        
+        
+    var j=0;
+        snap.forEach(function(childSnapshot) {
+            var recivedMsg = childSnapshot.val();
+        //       console.log(snap.val());
+        
+         
+            if(
+               (recivedMsg.toIdNum === logged_user) &&
+               (recivedMsg.fromIdNum === fromId+" " ) &&
+               (recivedMsg.isLiked === true)
+              ){   // CHECKS IF USER == MESSAGE ADDRESSEE
+
+
+               // console.log("HERE!!!!!!!!!!!!");
+            var sign = "&"                               // MAKING NEW LINK //Why the &??
+            var userName = logged_user;
+            var addSign = sign.concat(userName); 
+            var fromName = recivedMsg.fromIdNum;
+            var newRoute = addSign.concat(fromName); 
+
+
+            routeArray.push(newRoute);
+            fromArray.push(recivedMsg.From);
+            urlArray.push(recivedMsg.Site);
+            msgArray.push(recivedMsg.Msg);
+            timeArray.push(recivedMsg.Time);
+            timestampArray.push(recivedMsg.TimeStamp);
+            titleArray.push(recivedMsg.Title);
+            fromIDArray.push(recivedMsg.fromIdNum);
+            isLikedArray.push(recivedMsg.isLiked);
+                
+               
+
+            console.log(recivedMsg.isLiked);
+            console.log(recivedMsg.isLiked.length);
+            console.log(typeof recivedMsg.isLiked);
+
+            }
+        
+           j++;
+          
+          if(j==snap.numChildren())
+          {
+          callback();
+          }
+          
+          
+        });
+      })
+
+    
+  },function(callback){
+    
+    var logged_user = authData.uid;
+
+    
+   /* routeArray = routeArray.reverse();
+        fromArray = fromArray.reverse();
+        msgArray = msgArray.reverse();
+        urlArray = urlArray.reverse();
+        timeArray = timeArray.reverse();
+    titleArray = titleArray.reverse();*/
+
+        var name = req.params.name;
+            var str = name;
+
+
+
+    
+    res.render('homef2p', { fromID: fromIDArray,
+                       newroute: routeArray,
+                           user: name,
+                           from: fromArray,
+                        message: msgArray,
+                            url: urlArray,
+                          title: titleArray,
+                           time: timeArray,
+                     timestampA: timestampArray,
+                        isliked: isLikedArray
+                      });  
+    callback();
+  }
+]);
+
+
+
+} else {
+  console.log("User is logged out");
+  res.render('login');
+}});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

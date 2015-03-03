@@ -25,17 +25,17 @@ body {
 */
 
 
-a {
+.cd-container a {
   color: #acb7c0;
   text-decoration: none;
   font-family: "Comic Sans", sans-serif;
 }
 
-img {
+.cd-container img {
   max-width: 100%;
 }
 
-h1, h2 {
+.cd-container h1, h2 {
   font-family: "Comic Sans", sans-serif;
   font-weight: bold;
 }
@@ -66,6 +66,7 @@ Modules - reusable parts of our design
 Main components 
 
 -------------------------------- */
+/*
 header {
   height: 200px;
   line-height: 200px;
@@ -87,6 +88,7 @@ header h1 {
     font-size: 1.5rem;
   }
 }
+*/
 
 #cd-timeline {
   position: relative;

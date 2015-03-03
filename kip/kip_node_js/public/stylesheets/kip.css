@@ -15,8 +15,37 @@ section.home {
 	position: relative;
 	z-index: 0;
 	overflow: hidden;
-	background: url("http://app.fiveminutejournal.com/images/bg.jpg") no-repeat scroll center center / cover transparent;
+	background: url('../images/landingpage.jpg') no-repeat scroll center center / cover transparent;
 }
+header{
+	position: relative;
+	border-bottom:1px solid #dedede;
+}
+
+
+img {
+	max-width: 100%;
+	height: auto;
+	vertical-align: middle;
+}
+
+header #logo-wrapper {
+	margin-top: 25px;
+	margin-bottom: 25px;
+	z-index: 1;
+}
+
+header #logo-wrapper-other {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  z-index: 1;
+}
+
+#logo-wrapper-other img{
+  margin-left: -40px !important;
+  margin-top: -10px !important;
+}
+
 
 
 .form-signin-heading {
@@ -28,7 +57,7 @@ section.home {
 }
 
 div.landingPageImage{
-	background-image: url("http://app.fiveminutejournal.com/images/homescreen@2x.png")
+	background-image: url('../images/landingpage.jpg')
 }
 
 body.forKipNav {
@@ -37,13 +66,14 @@ body.forKipNav {
 }
 
 #homeBody {
-    padding-top: 90px;
+    padding-top: 80px;
         /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
 body {
-	padding-top: 50px;
+	padding-top: 90px;
 }
+
 
 img.friend {
 	width: 110px; 
