@@ -76,11 +76,227 @@ fEmails["simplelogin:6"] = "wasilewski.agnes@gmail.com" ;*/
 var fb = new Firebase(DB);
 
 
-///////////  tester page  ///////////
-router.get('/timeline', function(req, res, next) {
+///////////  TIME LINE!!!  ///////////
+router.get('/timeline/:name', function(req, res, next) {
+    var name = req.params.name;
+
+
+
+    var fb = new Firebase(DB+"messages");
+    var authData = fb.getAuth();
+    var fromArray = [];      // the time it was sent
+    
+    var urlArray = [];
+    var timeArray = []; 
+    var timestampArray = [];    // this is the time stamp  
+    var fromIDArray = [];       // who sent the message 
+    var msgArray =[];            // actual message
+    var titleArray = [];         // title of message 
+
+   // authData = true;
+    if (authData) {
+
+    async.series([
+    function(callback){
+
+    // connect it to DB 
+    var logged_user = authData.uid;
+    //var logged_user = "simplelogin:2";
+    var str = name;
+
+
+            
+
+//    console.log(name);
+//    console.log(name.length);
+//    console.log(typeof name);
+
+
+var friendArrayCounter = 1;
+
+    fb.orderByChild("TimeStamp").on("value", function(snap) {
+
+        
+        
+    var j=0;
+    var meArrayCounter = 0;
+    
+        snap.forEach(function(childSnapshot) {
+            
+
+            var recivedMsg = childSnapshot.val();  
+
+
+            if(recivedMsg.From === name){
+           //   console.log("there is a match!");
+             var friendID = recivedMsg.fromIdNum;  // this is friends ID NUM
+        
+
+            }
+
+
+          if(    //Messages that was to FROM ME to my FRIEND
+                (recivedMsg.toIdNum === logged_user)){
+            //  console.log("there is a match2!"); 
+              
+        
+
+          }
+
+            if( (recivedMsg.fromIdNum === friendID) &&    //Messages that was to FROM ME to my FRIEND
+                (recivedMsg.toIdNum === logged_user)
+
+            ){   // CHECKS IF USER == MESSAGE ADDRESSEE
+
+            urlArray[meArrayCounter] = recivedMsg.Site;
+            msgArray[meArrayCounter] = recivedMsg.Msg;
+            timeArray[meArrayCounter] = recivedMsg.Time;
+            timestampArray[meArrayCounter] = recivedMsg.TimeStamp;
+            titleArray[meArrayCounter] = recivedMsg.Title;
+            fromIDArray[meArrayCounter] = recivedMsg.fromIdNum;
+
+            meArrayCounter = meArrayCounter + 1; 
+            /*  
+            urlArray.push(recivedMsg.Site);
+            msgArray.push(recivedMsg.Msg);
+            timeArray.push(recivedMsg.Time);
+            timestampArray.push(recivedMsg.TimeStamp);
+            titleArray.push(recivedMsg.Title);
+            fromIDArray.push(recivedMsg.fromIdNum);
+            */
+               
+
+            }
+            /*  
+            var newFrom =  recivedMsg.fromIdNum;      
+            newFrom =  newFrom.toString().slice(0,13);
+
+
+            var newTo =  recivedMsg.toIdNum;
+            newTo =  newTo.toString().slice(0,13);
+
+            
+            console.log("check other side");
+            console.log(newFrom);
+            console.log(newFrom.length);
+
+
+            console.log("NEW TO START");            
+            console.log(newTo);
+            console.log(newTo.length);
+            console.log("NEW TO END");
+
+
+            console.log("NEW TO START");            
+            console.log(friendID);
+            console.log(friendID.length);
+            console.log("NEW TO END");
+
+
+            console.log("USER ");
+            console.log(logged_user);
+            console.log(logged_user.length);
+
+
+
+            console.log(friendID);
+            console.log(friendID.length); 
+            console.log("after");
+            console.log(recivedMsg.toIdNum);
+            //console.log(recivedMsg.toIdNum.length); 
+
+
+*/
+  /*  
+            if( (newFrom === logged_user) &&    //Messages that was to FROM ME to my FRIEND
+                (newTo === friendID)
+
+            ){   // CHECKS IF USER == MESSAGE ADDRESSEE
+
+            console.log("other side pushed");
+            urlArray[friendArrayCounter] = recivedMsg.Site;
+            msgArray[friendArrayCounter] = recivedMsg.Msg;
+            timeArray[friendArrayCounter] = recivedMsg.Time;
+            timestampArray[friendArrayCounter] = recivedMsg.TimeStamp;
+            titleArray[friendArrayCounter] = recivedMsg.Title;
+            fromIDArray[friendArrayCounter] = recivedMsg.fromIdNum;
+
+            friendArrayCounter = friendArrayCounter + 2; 
+          
+            urlArray.push(recivedMsg.Site);
+            msgArray.push(recivedMsg.Msg);
+            timeArray.push(recivedMsg.Time);
+            timestampArray.push(recivedMsg.TimeStamp);
+            titleArray.push(recivedMsg.Title);
+            fromIDArray.push(recivedMsg.fromIdNum);
+   
+               
+
+            }
+        
+         */
+
+
+
+
+
+           j++;
+          
+          if(j==snap.numChildren())
+          {
+          callback();
+          }
+          
+          
+        });
+      })
+
+    
+  },function(callback){
+    
+    var logged_user = authData.uid;
+
+    
+   /* routeArray = routeArray.reverse();
+        fromArray = fromArray.reverse();
+        msgArray = msgArray.reverse();
+        urlArray = urlArray.reverse();
+        timeArray = timeArray.reverse();
+    titleArray = titleArray.reverse();*/
+
+        var name = req.params.name;
+        var str = name;
+
+
+
+    
+    res.render('timeline', { 
+                          fromID: fromIDArray,
+                           from: fromArray,
+                        message: msgArray,
+                            url: urlArray,
+                          title: titleArray,
+                           time: timeArray,
+                     timestampA: timestampArray,
+            
+                      });  
+    callback();
+  }
+]);
+
+
+
+} else {
+  console.log("User is logged out");
   res.render('timeline');
-  
-});
+}});
+
+
+
+
+
+
+/////////////////////////////////
 
 
 router.get('/', function(req, res, next) {
@@ -94,6 +310,10 @@ if (authData) {
 //@  console.log("User is logged out");
   res.render('login');
 }
+
+
+
+
 
 
 
