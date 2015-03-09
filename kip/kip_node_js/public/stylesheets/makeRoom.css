@@ -331,8 +331,8 @@ img.friend {
 }
 
 .msgHolder{
-	border: solid 5px;
-	border-color: silver;
+	border: solid 1px;
+	border-color: rgb(244, 242, 242);
 	margin: 5px;
 	height: 25em;
 	overflow-y: scroll;
