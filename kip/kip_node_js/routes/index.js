@@ -18,7 +18,7 @@ var landing_page = "http://young-wave-7341.herokuapp.com/";
 
 var DB = "https://boiling-heat-3507.firebaseio.com/";
 var fArrayID = [];
-fArrayID["sung"] = "simplelogin:4";
+fArrayID["jawaher"] = "simplelogin:4";
 fArrayID["rawan"] = "simplelogin:2";
 fArrayID["asha"] = "simplelogin:3";
 fArrayID["diana"] = "simplelogin:5";
@@ -27,7 +27,7 @@ fArrayID["all"] = "simplelogin";
 
 
 var fArray = [];
-fArray["simplelogin:4"] = "sung" ;
+fArray["simplelogin:4"] = "jawaher" ;
 fArray["simplelogin:2"] = "rawan" ;
 fArray["simplelogin:3"] = "asha" ;
 fArray["simplelogin:5"] = "diana" ;
