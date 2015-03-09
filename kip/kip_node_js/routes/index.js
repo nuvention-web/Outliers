@@ -955,7 +955,7 @@ router.get('/sent', function(req, res, next) {
 
  
     
-res.render('homep', { newroute: "HI",
+res.render('sentp', { newroute: "HI",
                           user: name,
                           from: fromArray,
                        message: msgArray,
