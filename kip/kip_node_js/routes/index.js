@@ -1018,7 +1018,7 @@ fb2.on("value", function(snap) {
             {
               
                idsArray[j] = childSnapshot.key();
-               namesArray[j] = childSnapshot.val();
+               namesArray[j] = childSnapshot.val().toLowerCase();
 
               j++;
               
