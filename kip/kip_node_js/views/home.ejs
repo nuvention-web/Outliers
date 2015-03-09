@@ -91,7 +91,7 @@
 	    	<div class="row"> 
 			  <%for(var i=message.length-1; i>= 0; i--) {%>
 			  	<div class="col-lg-4 msgHolder">
-			    	<div class="msgTitle"><%=title[i]%></div>
+			    	<a class="msgTitle" href=' <%= url[i] %>'><%=title[i]%></a>
 	    			<a class="embedly-card" href=' <%= url[i] %>'></a>
 	    			<div class="msg"><span><%= message[i] %></span></div>
 	    					<!--
