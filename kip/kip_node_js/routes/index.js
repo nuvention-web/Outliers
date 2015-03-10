@@ -319,7 +319,7 @@ if (authData) {
 router.get('/e', function(req, res, next) {
 
 
-    res.render('timeline');
+    res.render('login2');
 
 
 
