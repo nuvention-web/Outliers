@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html><head>
-	<title>TINCAN</title>
+	<title>MAKE R{}{}M</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<!-- CSS Files comes here -->
-	<link href="stylesheets/bootstrap.min.css" rel="stylesheet">
-	<link href="stylesheets/kip.css" rel="stylesheet">
-	<script type="text/javascript" src="javascripts/jquery.js"></script> 
+	<link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+	<link rel="stylesheet" href="stylesheets/bootstrap-override.css">
+	<link rel="stylesheet" href="stylesheets/makeRoom.css">
+	<link rel="stylesheet" href="stylesheets/style.css">
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script type="text/javascript" src="javascripts/bootstrap.min.js"></script> 
+	<script async src="http://cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -19,12 +23,48 @@
   ga('send', 'pageview');
 
 </script>
+	
 </head>
-	<body id="homeBody">
+	<body id="homeBody"  onload="tester()">
 		 <!--###############################-->
 	    <!--NAVIGATION ####################-->
 	    <!--###############################-->
-	    <nav class="navbar navbar-default navbar-fixed-top">
+	    <header id="commonHeader">
+			<div class="container">
+				<div class="row">
+					<!-- Logo -->
+					<div id="logo-wrapper-other" class="col-md-4">
+						<a class="navbar-brand" href="#">
+							<img  alt="Brand" src="images/logomakeroom.gif">
+						</a>
+					</div>				
+					<!-- Navigation --> 
+					<nav class="navbar navbar-default navbar-static-top col-md-8">
+						<!-- .navbar-toggle is used as the toggle for collapsed navbar content -->
+						
+						<!-- Collect the nav links, forms, and other content for toggling -->
+						<div id="navbar" class="navbar navbar-right">
+					        <form action="/logout" method="post">
+						        <button type="submit" class="signout">SIGN OUT</button>
+					        </form>
+			        	</div>			
+					</nav>
+				</div>
+				<div class="row">
+			    	<ul class="nav nav-pills">
+					    <nav class="navbar navbar-left">
+			    			<ul class="nav navbar-nav">
+							  <li><a href="home">Home</a></li>
+							  <li><a href="friends">Friends</a></li>
+							  <li><a href="saved">Loved</a></li>
+							  <li><a href="sent"  class="active">Sent</a></li>
+							</ul>
+		    			</nav>
+					</ul>
+			    </div>
+			</div>
+		</header>
+	    <!--nav class="navbar navbar-default navbar-fixed-top">
 	      	<div class="container">
 		      	<div class="row">
 			      	<div class="navbar-header">
@@ -35,62 +75,62 @@
 					        <button type="submit" class="btn btn-success">Sign Out</button>
 				        </form>
 			        </div><!--/.navbar-collapse -->
+			    <!--
 			    </div>
 				<div class="row">
 			    	<ul class="nav nav-pills">
-					  <li role="presentation" ><a href="/home">Home</a></li>
-					  <li role="presentation"><a href="/friends">Friends</a></li>
-					<li role="presentation"  ><a href="/saved">Loved</a></li>
-					<li role="presentation" ><a href="/sent">Sent</a></li>
+						<li role="presentation" ><a href="/home">Home</a></li>
+						<li role="presentation"><a href="/friends">Friends</a></li>
+						<li role="presentation" ><a href="/saved">Loved</a></li>
+						<li role="presentation" ><a href="/sent">Sent</a></li>
 					</ul>
-			    </div>		    
+			    </div>
 	    	</div>
-	    </nav>
+	    </nav> -->
 	    <div class="container">
-	    	<div class="row">
-          <!-- THIS IS THE PLACE WHERE THE MESSAGESES ARE LOOPED  -->
-			  <% for(var i=0; i< message.length; i++) {%>
+	    	<div class="row"> 
+			  <%for(var i=message.length-1; i>= 0; i--) {%>
+			  	<div class="col-lg-4 msgHolder">
+			    	<a class="msgTitle" href=' <%= url[i] %>'><%=title[i]%></a>
+	    			<a class="embedly-card" href=' <%= url[i] %>'></a>
+	    			<div class="msg"><span><%= message[i] %></span></div>
+	    					<!--
+			    			<a href=' <%= url[i] %>  ' target="_blank"> <h3> <%=title[i]%> </h3></a>
+			    			<p> <%= message[i] %> </p> -->
+			    	<div> 
+			    	<form id="form1" action="/<%= from[i] %>" method="post">	
+		    				<!-- THIS IS WHAT IS MAKING THE AREF LOOK WIERD!!!!! CHANGE CSS FOR BUTTON TYPE -->
 
-			    <form action="/home" method="post">
-
-	    		<div class="col-lg-4">
-	    			<a href=' <%= url[i] %> '> <h3> <%=title[i]%>  </h3></a>
-	    			<p> <%= message[i] %> </p>
-	    			<div>
-	    				<div class="sender" style="float:Left;"> To:<%= from[i] %> @ <%= time[i] %> </div>
+	    				<div class="sender"   style="float:Left;"  >	<button type='submit' class="senderBtn">  <%= from[i] %> @ <%= time[i] %> </button>  
+	    				</div>
 	    				<div class="btn-toolbar" role="toolbar" style="float:Right;">
 		    				<div class="btn-group">
-
-		    					<input type="text" name="timestamp" size="51" style= "height:26px" value=  '<%= timestampA[i] %> '  hidden >
-						    <!--    <button class="btn btn-default" aria-label="Delete" type="button">
-						            <span title="Delete" class="glyphicon glyphicon-trash"></span>
-						        </button> -->
-
-
-						      <!--  <button class="btn btn-default" aria-label="Tag" type="button">
-						        	<span title="Tag" class="glyphicon glyphicon-tag"></span>
-						        </button> -->
-
-
-						        <button class="btn btn-default" aria-label="Love" name = "Love" type="submit">
-						        	<span title="Love" class="glyphicon glyphicon-heart"></span>
-						        </button>
+				
+		    					<!-- this to check for sender ID -->
+								<input type="text" name="fromID" size="51" style= "height:26px" value=  '<%= fromID[i] %> '  hidden  >	
+					</form>
+					<form action="/home" method="post" >	
+				    					<!-- this to check timestamp -->	
+			    				<input type="text" name="timestamp" size="51" style= "height:26px" value=  '<%= timestampA[i] %> '  hidden >
+								       <!--  <button class="btn btn-default" aria-label="Delete" type="button">
+								            <span title="Delete" class="glyphicon glyphicon-trash"></span>
+								        </button> -->
 
 
-						      <!--  <button class="btn btn-default" aria-label="Share" type="button">
-						        	<span title="Share" class="glyphicon glyphicon-share-alt"></span>
-						        </button> -->
 
-		    				</div>
-	    				</div>	    				
-	    			</div>
-	    		</div>
-	    	</form>
+								       
+
+
+								       <!--  <button class="btn btn-default" aria-label="Share" type="button">
+								        	<span title="Share" class="glyphicon glyphicon-share-alt"></span>
+								        </button> -->
+								    </div>
+				    			</div>
+			    			</div>	
+			    		</div>
+			    	</form>
 			   <% } %>
-	    		
-	    	
 	    	</div>
 	    </div>
-	</body>
-
+	</body >
 </html>

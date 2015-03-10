@@ -278,7 +278,7 @@ var friendArrayCounter = 1;
                      timestampA: timestampArray,
                          friend: name,
                            user: fArray[logged_user]
-                          
+                       
             
                       });  
     callback();
@@ -572,6 +572,7 @@ router.get('/saved', function(req, res, next) {
   var routeArray = [];
   var timestampArray =[];
   var titleArray = [];
+  var fromIDArray = [];
 
 
   if (authData) {
@@ -606,6 +607,7 @@ router.get('/saved', function(req, res, next) {
             timeArray.push(recivedMsg.Time);
             timestampArray.push(recivedMsg.TimeStamp);
             titleArray.push(recivedMsg.Title);
+            fromIDArray.push(recivedMsg.fromIdNum);
                     
           }
      });
@@ -625,7 +627,8 @@ router.get('/saved', function(req, res, next) {
 
  
     
-  res.render('homep', { newroute: "HI" ,
+  res.render('loved', { newroute: "HI" ,
+                            fromID: fromIDArray,
                             user: name,
                             from: fromArray,
                          message: msgArray,
@@ -833,6 +836,8 @@ router.post('/:name', function(req, res, next) {
   var routeArray = [];
   var timestampArray =[];
   var titleArray = [];
+  var fromIDArray = [];
+  var isLikedArray = [];
 
 var authData = fb.getAuth();
   if (authData) {
@@ -882,6 +887,8 @@ var authData = fb.getAuth();
             timeArray.push(recivedMsg.Time);
             titleArray.push(recivedMsg.Title)
             timestampArray.push(recivedMsg.TimeStamp);
+            fromIDArray.push(recivedMsg.fromIdNum);
+            isLikedArray.push(recivedMsg.isLiked);
                     
           }
      })
@@ -893,15 +900,16 @@ var authData = fb.getAuth();
   timeArray = timeArray.reverse();*/
 
 
- 
     
 res.render('homep', { newroute: "HI" ,
+                          fromID: fromIDArray,
                           user: name,
                           from: fromArray,
                        message: msgArray,
                            url: urlArray,
                           time: timeArray,
                     timestampA: timestampArray,
+                    isliked: isLikedArray,
                          title: titleArray
                      }); 
                     
@@ -922,7 +930,7 @@ res.render('login');
 
 
 
-router.get('/saved/:name', function(req, res, next) {
+router.post('/saved/:name', function(req, res, next) {
     
 
     var fb = new Firebase(DB+"messages");
@@ -953,6 +961,8 @@ router.get('/saved/:name', function(req, res, next) {
     var str = name;
 
     var fromId = req.body.fromID;
+    
+    
 
 
     fb.orderByChild("TimeStamp").on("value", function(snap) {
@@ -963,11 +973,11 @@ router.get('/saved/:name', function(req, res, next) {
         snap.forEach(function(childSnapshot) {
             var recivedMsg = childSnapshot.val();
         //       console.log(snap.val());
-        
+        console.log(recivedMsg.fromIdNum+" ffff"+fromId+"ffff" );
          
             if(
                (recivedMsg.toIdNum === logged_user) &&
-               (recivedMsg.fromIdNum === fromId+" " ) &&
+               (recivedMsg.fromIdNum+" " === fromId ) &&
                (recivedMsg.isLiked === true)
               ){   // CHECKS IF USER == MESSAGE ADDRESSEE
 
@@ -993,8 +1003,8 @@ router.get('/saved/:name', function(req, res, next) {
                
 
             console.log(recivedMsg.isLiked);
-            console.log(recivedMsg.isLiked.length);
-            console.log(typeof recivedMsg.isLiked);
+          //  console.log(recivedMsg.isLiked.length);
+           // console.log(typeof recivedMsg.isLiked);
 
             }
         
@@ -1028,7 +1038,7 @@ router.get('/saved/:name', function(req, res, next) {
 
 
     
-    res.render('homef2p', { fromID: fromIDArray,
+    res.render('loved', { fromID: fromIDArray,
                        newroute: routeArray,
                            user: name,
                            from: fromArray,

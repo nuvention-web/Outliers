@@ -51,6 +51,7 @@ header nav.navbar-default {
 
 .signout, header .navbar-default .navbar-nav>li>a {
 	color: #000;
+	
 }
 
 .signout, .senderBtn {
@@ -64,8 +65,10 @@ header nav.navbar-default {
 }
 
 .signout{
-	font-size: 24px;
+	font-size: 15px;
 	letter-spacing: 1px;
+
+	
 }
 
 .senderBtn{
