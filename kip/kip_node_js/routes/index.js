@@ -133,20 +133,17 @@ var friendArrayCounter = 1;
         
 
             }
+            
+            if(recivedMsg.To === name ){
+               //   console.log("there is a match!");
+             var friendID = recivedMsg.toIdNum;  // this is friends ID NUM
+            
 
+            }
+            
 
-          if(    //Messages that was to FROM ME to my FRIEND
-                (recivedMsg.toIdNum === logged_user)){
-            //  console.log("there is a match2!"); 
-              
-        
-
-          }
-
-            if( (recivedMsg.fromIdNum === friendID) &&    //Messages that was to FROM ME to my FRIEND
-                (recivedMsg.toIdNum === logged_user)
-
-            ){   // CHECKS IF USER == MESSAGE ADDRESSEE
+           if( ((recivedMsg.fromIdNum === friendID) && (recivedMsg.toIdNum === logged_user)) || ((recivedMsg.fromIdNum === logged_user+" " ) && (recivedMsg.toIdNum === friendID )) )
+             {   // CHECKS IF USER == MESSAGE ADDRESSEE
 
             urlArray[meArrayCounter] = recivedMsg.Site;
             msgArray[meArrayCounter] = recivedMsg.Msg;
@@ -154,6 +151,7 @@ var friendArrayCounter = 1;
             timestampArray[meArrayCounter] = recivedMsg.TimeStamp;
             titleArray[meArrayCounter] = recivedMsg.Title;
             fromIDArray[meArrayCounter] = recivedMsg.fromIdNum;
+            fromArray [meArrayCounter] = recivedMsg.From;  
 
             meArrayCounter = meArrayCounter + 1; 
             /*  
@@ -278,6 +276,9 @@ var friendArrayCounter = 1;
                           title: titleArray,
                            time: timeArray,
                      timestampA: timestampArray,
+                         friend: name,
+                           user: fArray[logged_user]
+                          
             
                       });  
     callback();
@@ -311,12 +312,14 @@ if (authData) {
   res.render('login');
 }
 
+});
 
 
 
+router.get('/e', function(req, res, next) {
 
 
-
+    res.render('timeline');
 
 
 
