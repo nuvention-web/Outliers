@@ -40,10 +40,15 @@ Kirti: http://intense-horsepower-98-189832.use1-2.nitrousbox.com/6/kip.html
 
 
 go to our landing page and login using the email accounts below. The password is 123.
+
 Jawaher: shk.kim@gmail.com
+
 Rawan: rawan@u.northwestern.edu
+
 Asha: asha.spectrum@gmail.com
+
 Diana: diana.yang1028@gmail.com
+
 Kirti: kirti.maharwal@gmail.com
 
 Landing Page: http://young-wave-7341.herokuapp.com/ 
