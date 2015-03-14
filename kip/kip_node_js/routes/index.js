@@ -315,15 +315,16 @@ if (authData) {
 });
 
 
+// this is just a tester page to test anything 
 
-router.get('/e', function(req, res, next) {
+/*router.get('/e', function(req, res, next) {
 
 
     res.render('login2');
 
 
 
-});
+});*/
 
 router.post('/logout', function(req, res, next){
   
@@ -352,7 +353,7 @@ router.post('/home', function(req, res, next) {
 var authData = fb.getAuth();
 if(!authData){
 
-
+// Authintation using email
 fb.authWithPassword({
   email    : req.body.email,
   password : req.body.pass
@@ -373,10 +374,12 @@ fb.authWithPassword({
 
 var fb2 = new Firebase(DB+"messages");
 
+// if logged in 
+
 if(authData){   
  
   
-  // check again if you are logged in!
+
 
     var findTimeStamp= req.body.timestamp;
     var logged_user = authData.uid;
@@ -593,7 +596,7 @@ router.get('/saved', function(req, res, next) {
 
 
                      
-            var sign = "&"                               // MAKING NEW LINK //Why the &??
+            var sign = "&"                               //  //Sung, do we need &?
             var userName = logged_user;
             var addSign = sign.concat(userName); 
             var fromName = recivedMsg.fromIdNum;
@@ -625,7 +628,7 @@ router.get('/saved', function(req, res, next) {
    titleArray = titleArray.reverse();*/
 
 
- 
+ //Sung, do we need hi?
     
   res.render('loved', { newroute: "HI" ,
                             fromID: fromIDArray,
@@ -668,7 +671,7 @@ res.render('send', { title:  requestedTitle, url: requestedURL, friendArray: fAr
 
 
 
-///////////// SEND 2  ///////////////////
+///////////// SEND   ///////////////////
 
 
 
@@ -702,7 +705,7 @@ console.log(senderID);
 //////////// THIS IS THE PAGE AFTER SUBMIT //////////
 
 
-router.post('/jazz', function(req, res, next) {
+router.post('/conformation', function(req, res, next) {
 
 
 var dateObj =  new Date();
@@ -724,21 +727,19 @@ var sendTitle = req.body.title;
 
 var senderIdNum = req.body.senderID;
 
-console.log("///////////////////////////////////// senderIdNum ////////"+senderIdNum.substring(0,senderIdNum.length-1)+"//////");
-console.log("///////////////////////////////////// sender Name////////"+fArray[sendReciver]+"//////");
+
 
 var reciverIdNum = fArrayID[sendReciver];
 
 var from= fArray[senderIdNum.substring(0,senderIdNum.length-1)];
 
-console.log("///////////////////////////////////// reciverIdNum////////"+reciverIdNum);
+
 
 
 
 
 var fb2 = new Firebase(DB+"messages"); 
 
-console.log("////////////////////////sendReciver="+sendReciver+"////////");
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport();
 
@@ -806,21 +807,19 @@ fb.push(userRec);*/
 
 
 //var conformation = "Your message was sent to: " +  sendReciver + "\n\n With the msg: " + "\n" + sendMsg + "link:" + sendUrl;
-var conformation = "Your message has been sent to " +  sendReciver ;
+var conf = "Your message has been sent to " +  sendReciver ;
 
-res.render('jazz', { conf : conformation });
+res.render('conformation', { conf : conf});
 
 });
 
 
 
-/////////////   FRIEND PAGE      //////////////
-
+///////////// recived from a specific friend  //////////////
 
 
 router.post('/:name', function(req, res, next) {
   
-  console.log("I am in FRIENDS!!!!!!!!!");
 
   var name = req.params.name;
   var fb = new Firebase(DB+"messages");
@@ -926,8 +925,6 @@ res.render('login');
 
 
 ///////////////// FRIEND AND LOVED !  //////////////////
-
-
 
 
 router.post('/saved/:name', function(req, res, next) {
@@ -1082,8 +1079,7 @@ router.post('/saved/:name', function(req, res, next) {
 
 
 
-///////////// THIS IS WHAT SHOWS  ////////////////////
-
+///////////// Fiends list  ////////////////////
 
 
   
@@ -1111,7 +1107,7 @@ router.get('/friends', function(req, res, next){
 
 
 
-/////////////  SHOW ALL SENTS!   //////////////
+/////////////  SHOW ALL SENT!   //////////////
 
 
 router.get('/sent', function(req, res, next) {
