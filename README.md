@@ -32,16 +32,21 @@ Rawan: http://intense-horsepower-98-189832.use1-2.nitrousbox.com/2/kip.html
 
 Asha: http://intense-horsepower-98-189832.use1-2.nitrousbox.com/3/kip.html
 
-Sung: http://intense-horsepower-98-189832.use1-2.nitrousbox.com/4/kip.html
+Jawaher: http://intense-horsepower-98-189832.use1-2.nitrousbox.com/4/kip.html
 
 Diana:http://intense-horsepower-98-189832.use1-2.nitrousbox.com/5/kip.html
 
 Kirti: http://intense-horsepower-98-189832.use1-2.nitrousbox.com/6/kip.html
 
 
-go to our landing page and login using your @gmail account. The password is 123.
+go to our landing page and login using the email accounts below. The password is 123.
+Jawaher: shk.kim@gmail.com
+Rawan: rawan@u.northwestern.edu
+Asha: asha.spectrum@gmail.com
+Diana: diana.yang1028@gmail.com
+Kirti: kirti.maharwal@gmail.com
 
-http://young-wave-7341.herokuapp.com/ 
+Landing Page: http://young-wave-7341.herokuapp.com/ 
 
 #KIP Product Management Approach
 
