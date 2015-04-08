@@ -1,4 +1,4 @@
 # Outliers 
-Asha
-Rawan
-Sung
+* Asha
+* Rawan
+* Sung
