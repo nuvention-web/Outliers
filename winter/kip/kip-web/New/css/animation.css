@@ -1,0 +1,172 @@
+
+.dot1 {
+        -webkit-animation: dot1 18s linear infinite;
+        animation: dot1 18s linear infinite;
+    }
+
+    @-webkit-keyframes dot1 {
+      0% { left: 0%; bottom: 0%;}
+      100% { left: 100%; bottom: 70%;}
+    }
+    
+    @-moz-keyframes dot1 {
+      0% { left: 0%; bottom: 0%;}
+      100% { left: 100%; bottom: 70%;}
+    }
+    
+    .dot2 {
+        -webkit-animation: dot2 10s linear infinite;
+        animation: dot2 10s linear infinite;
+    }
+
+    @-webkit-keyframes dot2 {
+      0% { left: 0%; bottom: 10%;}
+      100% { left: 100%; bottom: 50%;}
+    }
+    
+    @-moz-keyframes dot2 {
+      0% { left: 0%; bottom: 10%;}
+      100% { left: 100%; bottom: 50%;}
+    }
+    
+    .dot3 {
+        -webkit-animation: dot3 14s linear infinite;
+        animation: dot3 14s linear infinite;
+    }
+
+    @-webkit-keyframes dot3 {
+      0% { right: 0%; top: 10%;}
+      100% { right: 100%; top: 60%;}
+    }
+    
+    @-moz-keyframes dot3 {
+      0% { right: 0%; top: 10%;}
+      100% { right: 100%; top: 60%;}
+    }
+    
+    .dot4 {
+        -webkit-animation: dot4 8s linear infinite;
+        animation: dot4 8s linear infinite;
+    }
+
+    @-webkit-keyframes dot4 {
+      0% { right: 40%; bottom: 0%;}
+      100% { right: 60%; bottom: 100%;}
+    }
+    
+    @-moz-keyframes dot4 {
+      0% { right: 40%; bottom: 0%;}
+      100% { right: 60%; bottom: 100%;}
+    }
+    
+    .dot5 {
+        -webkit-animation: dot5 30s linear infinite;
+        -webkit-animation-delay: 2s;
+        animation: dot5 30s linear infinite;
+        animation-delay: 2s;
+    }
+
+    @-webkit-keyframes dot5 {
+      0% { right: 80%; bottom: 0%;}
+      100% { right: 50%; bottom: 100%;}
+    }
+    
+    @-moz-keyframes dot5 {
+      0% { right: 80%; bottom: 0%;}
+      100% { right: 50%; bottom: 100%;}
+    }
+    
+    .dot6 {
+        -webkit-animation: dot6 60s linear infinite;
+        -webkit-animation-delay: 4s;
+        animation: dot6 linear infinite;
+        animation-delay: 4s;
+    }
+
+    @-webkit-keyframes dot6 {
+      0% { right: 0%; top: 40%;}
+      100% { right: 100%; top: 60%;}
+    }
+    
+    @-moz-keyframes dot6 {
+      0% { right: 0%; top: 40%;}
+      100% { right: 100%; top: 60%;}
+    }
+    
+    .dot7 {
+        -webkit-animation: dot7 16s linear infinite;
+        animation: dot7 16s linear infinite;
+    }
+
+    @-webkit-keyframes dot7 {
+      0% { left: 5%; bottom: 0%;}
+      100% { left: 20%; bottom: 100%;}
+    }
+    
+    @-moz-keyframes dot7 {
+      0% { left: 5%; bottom: 0%;}
+      100% { left: 20%; bottom: 100%;}
+    }
+    
+    .dot8 {
+        -webkit-animation: dot8 6s linear infinite;
+        -webkit-animation-delay: 3s;
+        animation: dot8 6s linear infinite;
+    }
+
+    @-webkit-keyframes dot8 {
+      0% { left: 0%; bottom: 30%;}
+      100% { left: 100%; bottom: 10%;}
+    }
+    
+    @-moz-keyframes dot8 {
+      0% { left: 0%; bottom: 30%;}
+      100% { left: 100%; bottom: 10%;}
+    }
+    
+    .dot9 {
+        -webkit-animation: dot9 22s linear infinite;
+        animation: dot9 22s linear infinite;
+    }
+
+    @-webkit-keyframes dot9 {
+      0% { left: 0%; bottom: 60%;}
+      100% { left: 100%; bottom: 90%;}
+    }
+    
+    @-moz-keyframes dot9 {
+      0% { left: 0%; bottom: 60%;}
+      100% { left: 100%; bottom: 90%;}
+    }
+    
+    .dot10 {
+        -webkit-animation: dot10 14s linear infinite;
+        -webkit-animation-delay: 2s;
+        animation: dot10 14s linear infinite;
+        animation-delay: 2s;
+    }
+
+    @-webkit-keyframes dot10 {
+      0% { right: 5%; top: 0%;}
+      100% { right: 45%; top: 100%;}
+    }
+    
+    @-moz-keyframes dot10 {
+      0% { right: 5%; top: 0%;}
+      100% { right: 45%; top: 100%;}
+    }
+
+	@media screen and (-webkit-min-device-pixel-ratio: 0) {
+        div[class="overlay"]{position: relative;}
+        div[class="dots"]{display: block !important; opacity: 0.4 !important;}
+        div[class="dot1"], div[class="dot2"], div[class="dot3"], div[class="dot4"], div[class="dot5"], div[class="dot6"], div[class="dot7"], div[class="dot8"], div[class="dot9"], div[class="dot10"] {
+            position: absolute;
+            overflow: hidden;
+            display: block !important;
+            width:4px !important;
+            height:4px !important;
+            background:#ffffff;
+            border-radius:10px; -webkit-border-radius: 10px; moz-border-radius: 10px;
+        }
+        .ExternalClass div[class="ecxdot1"], .ExternalClass div[class="ecxdot2"], .ExternalClass div[class="ecxdot3"], .ExternalClass div[class="ecxdot4"], .ExternalClass div[class="ecxdot5"], .ExternalClass div[class="ecxdot6"], .ExternalClass div[class="ecxdot7"], .ExternalClass div[class="ecxdot8"], .ExternalClass div[class="ecxdot9"], .ExternalClass div[class="ecxdot10"] {display: none !important;height:0px !important;width: 0px !important;}
+    }

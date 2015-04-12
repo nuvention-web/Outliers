@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+  <html lang="en-US"> <!--<![endif]-->
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>MAKE R{}{}M|Home</title>
+    <!-- Included CSS Files -->
+    <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="stylesheets/bootstrap-override.css">
+    <link rel="stylesheet" href="stylesheets/makeRoom.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="stylesheets/animation.css">
+    
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/bootstrap.min.js"></script> 
+    <script>
+      $(document).ready(function(){
+        
+      });
+
+    </script>
+  </head>
+
+  <body>
+
+    <!-- Add div for boxed layout -->
+    
+    <header>
+      <div class="container">
+        <div class="row">
+          <!-- Logo -->
+          <div id="logo-wrapper" class="col-md-4">
+            <a class="navbar-brand" href="#">
+              <img  alt="Brand" src="images/logomakeroom.gif">
+            </a>
+          </div>				
+          <!-- Navigation --> 
+          <nav class="navbar navbar-default navbar-static-top col-md-8">
+            <!-- .navbar-toggle is used as the toggle for collapsed navbar content -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#header-nav-1">
+                <span class="icon-text visible-xs"><i class="fa fa-bars"></i> </span>
+                <i class="menu-burger fa fa-bars hidden-xs"></i>
+              </button>
+            </div>
+            
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="header-nav-1" class="navbar-collapse collapse">
+            <form class="navbar-form navbar-right" style="padding-top:50px" method="post" action="/home">
+              <div class="form-group">
+                <input type="email" name="email" placeholder="Email" class="form-control">
+              </div>
+              <div class="form-group">
+                <input type="password" name="pass" placeholder="Password" class="form-control">
+              </div>
+              <button type="submit" name="commit"  value="Login" class="btn btn-warning">Sign in</button>
+            </form>
+            </div>				
+          </nav>
+        </div>
+      </div>
+    </header>
+    <section class="landingBG page">
+      <div class="container page">
+        <div class="page overlay">
+          <div style="display:none;" class="dots">
+                  <div class="dot1" style="display: none; height: 0px; width: 0px;"></div>
+                  <div class="dot2" style="display: none; height: 0px; width: 0px;"></div>
+                  <div class="dot3" style="display: none; height: 0px; width: 0px;"></div>
+                  <div class="dot4" style="display: none; height: 0px; width: 0px;"></div>
+                  <div class="dot5" style="display: none; height: 0px; width: 0px;"></div>
+                  <div class="dot6" style="display: none; height: 0px; width: 0px;"></div>
+                  <div class="dot7" style="display: none; height: 0px; width: 0px;"></div>
+                  <div class="dot8" style="display: none; height: 0px; width: 0px;"></div>
+                  <div class="dot9" style="display: none; height: 0px; width: 0px;"></div>
+                  <div class="dot10" style="display: none; height: 0px; width: 0px;"></div>
+            	</div>
+            	<div id="mainSlogan" class="mainSlogan row">
+              	<div id="leftSloganBracket" class="col-md-4">
+              		<img src="images/bracket.png"></img>
+              	</div>
+              	<div id="sloganHolder" class="col-md-4">
+              		<span class="bottom tableCell">Who are you <br/> making room for?</span>
+              	</div>
+              	<div id="rightSloganBracket" class="col-md-4">
+              		<img src="images/bracket-right.png"></img>
+              	</div>	        	
+            	</div>
+            	<!--div class="row">
+            		<div class="col-md-12" id="ourStoryBtn">
+            <a id="readMore" href="" class="button filled">Our Story</a>
+            </div>
+            	</div-->
+            </div>
+      </div>
+    </section>
+    
+    
+  <!-- Begin main-content -->
+    
+  <!-- #main-content -->
+  <div class="container">
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="Login Page" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Please enter your email id and password</h4>
+          </div>
+           <form id="userLoginForm">
+            	<div class="modal-body">
+                  <div class="form-group">
+                    <input type="email" placeholder="Email" class="form-control" required autofocus>
+                  </div>
+                  <div class="form-group">
+                    <input type="password" placeholder="Password" class="form-control" required autofocus>
+                  </div>
+                  <div class="form-group">
+                  	<button id="btn1" type="button" class="btn btn-success">Login</button>
+                  	<a id="linkNewUserAccess" class="btn" data-toggle="modal"
+     						data-dismiss="modal" data-target="#signupModal" href="" style="float:right;"> New Users, click here</a>
+                  </div>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="Login Page" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Welcome, Lets make room for real conversations!</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form-signup">
+                    <div class="form-group"> 
+                        <input type="name" id="inputName" class="form-control" placeholder="Full Name" required autofocus>
+                    </div>
+
+                    <div class="form-group"> 
+                        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus></input>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" class="form-control" required autofocus>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success" type="submit">Request Access</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+      </div>
+  </div>
+  <!-- Footer -->
+  <footer>
+  </footer>
+  <!-- Footer -->
+
+
+  </body>
+  </html>
